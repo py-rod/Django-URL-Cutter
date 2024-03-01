@@ -17,8 +17,6 @@
     justify-content: space-between;
     align-items: center;
     margin: 0 auto;
-    border-bottom: 1px solid var(--bg-200);
-    box-shadow: 0 5px 5px -7px rgb(219, 219, 219);
 }
 
 .header-logo {
@@ -26,7 +24,7 @@
     font-size: 2rem;
     font-family: var(--asap);
     font-weight: 700;
-    color: var(--text-100);
+    color: var(--text-color1);
 }
 
 .header-container-account {

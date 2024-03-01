@@ -1,17 +1,28 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
 {% block head %}
+<link rel="stylesheet" href="{% static 'css/signup.css' %}" type="text/css">
 {% endblock %}
 {% block title %}Sign up{% endblock %}
 
 
 {% block content %}
-{% include 'layouts/header.html' %}
 <main class="main-signup">
-    <form action="{% url 'signup' %}" method="POST">
-        {% csrf_token %}
-        {{form}}
-        <button type="submit">Register</button>
-    </form>
+    <section class="section-1">
+        <h1 class="container-url-home">Sign up for <span><a href="{% url 'home' %}">URLTrim</a></span></h1>
+        <form action="{% url 'signup' %}" method="POST" class="form-signup">
+            {% csrf_token %}
+            <input type="text" name="first_name" id="id_first_name" maxlength="200" required autofocus
+                placeholder="First name">
+            <input type="text" name="last_name" id="id_last_name" maxlength="200" required placeholder="Last name">
+            <input type="email" name="email" id="id_email" required maxlength="254" placeholder="Email">
+            <input type="password" name="password1" id="id_password1" required autocomplete="new-password"
+                placeholder="Password">
+            <input type="password" name="password2" id="id_password2" required placeholder="Password confirmation">
+
+            {{form.captcha}}
+            <button type="submit" class="btn-register">Sign up</button>
+        </form>
+    </section>
 </main>
 {% endblock %}

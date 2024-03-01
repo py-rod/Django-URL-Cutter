@@ -6,9 +6,17 @@ from django_recaptcha.fields import ReCaptchaField, ReCaptchaV3
 
 
 class UserCreationForm(UserCreationForm):
+    captcha = ReCaptchaField(widget=ReCaptchaV3(attrs={
+        'required_score': 0.80,
+        'size': 'compact',
+        'theme': 'dark',
+        'action': 'signup'
+    }))
+
     class Meta:
         model = get_user_model()
-        fields = ["first_name", "last_name", "email", "password1", "password2"]
+        fields = ["first_name", "last_name", "email",
+                  "password1", "password2", "captcha"]
 
     def save(self, commit=True) -> Any:
         user = super().save(commit=False)
