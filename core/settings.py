@@ -159,3 +159,7 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 RECAPTCHA_PUBLIC_KEY = env("RECAPTCHA_PUBLIC_KEY")
 RECAPTCHA_PRIVATE_KEY = env("RECAPTCHA_PRIVATE_KEY")
 SILENCED_SYSTEM_CHECKS = ['django_recaptcha.recaptcha_test_key_error']
+
+
+# CUSTOM USER MODEL
+AUTH_USER_MODEL = "users.CustomUser"
