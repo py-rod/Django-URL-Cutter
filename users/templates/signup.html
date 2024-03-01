@@ -1,0 +1,17 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% block head %}
+{% endblock %}
+{% block title %}Sign up{% endblock %}
+
+
+{% block content %}
+{% include 'layouts/header.html' %}
+<main class="main-signup">
+    <form action="{% url 'signup' %}" method="POST">
+        {% csrf_token %}
+        {{form}}
+        <button type="submit">Register</button>
+    </form>
+</main>
+{% endblock %}

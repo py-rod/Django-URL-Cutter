@@ -1,0 +1,16 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% block head %}
+{% endblock %}
+{% block title %}Sign in{% endblock %}
+
+{% block content %}
+{% include 'layouts/header.html' %}
+<main>
+    <form action="{% url 'signin' %}" method="POST">
+        {% csrf_token %}
+        {{form}}
+        <button type="submit">Login</button>
+    </form>
+</main>
+{% endblock %}
