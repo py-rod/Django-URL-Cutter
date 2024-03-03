@@ -1,0 +1,60 @@
+.content-alerts {
+    position: absolute;
+    top: 0;
+    right: 0;
+    z-index: 100000;
+
+    border-radius: 8px;
+}
+
+.alert {
+    display: flex;
+    align-items: center;
+    width: fit-content;
+    transition: opacity 0.5s ease-in-out;
+    opacity: 1;
+    font-family: var(--font-plus);
+    border: none;
+    color: white;
+    border-radius: 8px;
+    gap: 10px;
+    padding: 15px 20px;
+    background-color: rebeccapurple;
+}
+
+.alert>svg {
+    fill: white;
+}
+
+.alert-success {
+    background-color: #00d684;
+}
+
+.alert-danger {
+    background-color: #ff3a6ef6;
+}
+
+.alert-info {
+    background-color: #23d7e4f6;
+}
+
+.alert-warning {
+    background-color: #eeff53f6;
+    color: #101418;
+}
+
+.alert-warning>svg {
+    fill: #101418;
+}
+
+
+.alert.hidden {
+    animation: fade-out .5s forwards;
+}
+
+@keyframes fade-out {
+    to {
+        display: none;
+        opacity: 0;
+    }
+}

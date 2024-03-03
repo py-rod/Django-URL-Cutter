@@ -51,3 +51,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
         verbose_name_plural = "Users"
         db_table = "Users"
         ordering = ("-id", )
+
+    def save(self, *args, **kwargs) -> None:
+        self.first_name = self.first_name.title()
+        self.last_name = self.last_name.title()
+        super().save(*args, **kwargs)

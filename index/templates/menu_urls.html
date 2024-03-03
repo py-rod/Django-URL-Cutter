@@ -1,11 +1,15 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
 {% block head %}
+<link rel="stylesheet" href="{% static 'css/menu_urls.css' %}" type="text/css">
 {% endblock %}
 {% block title %}URLTrim{% endblock %}
 
 
 {% block content %}
 {% include 'layouts/header.html' %}
-Estas en el menu de urls ya logueado
+<main class="main-menu-urls">
+    {% include 'layouts/messages.html' %}
+    Estas en el menu de urls ya logueado
+</main>
 {% endblock %}

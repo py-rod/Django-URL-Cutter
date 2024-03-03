@@ -1,9 +1,13 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/index.css' %}" type="text/css">
+{% endblock %}
 
 {% block content %}
 {% include 'layouts/header.html' %}
-<main>
+<main class="main-index">
+    {% include 'layouts/messages.html' %}
     dsf
 </main>
 {% endblock %}
