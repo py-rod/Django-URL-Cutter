@@ -1,16 +1,33 @@
 {% extends 'layouts/base.html' %}
+{% load socialaccount %}
 {% load static %}
 {% block head %}
+<link rel="stylesheet" href="{% static 'css/signin.css' %}" type="text/css">
 {% endblock %}
 {% block title %}Sign in{% endblock %}
 
 {% block content %}
-{% include 'layouts/header.html' %}
-<main>
-    <form action="{% url 'signin' %}" method="POST">
-        {% csrf_token %}
-        {{form}}
-        <button type="submit">Login</button>
-    </form>
+<main class="main-signin">
+    <section class="section-1">
+        <h1 class="container-url-home">Sign up for <span><a href="{% url 'home' %}">URLTrim</a></span></h1>
+        <div class="container-btn-google">
+            <a href="{% provider_login_url 'google' %}" class="btn-google">
+                <img src="{% static 'icons/google.svg' %}" alt="google-icon">
+                Continue with Google
+            </a>
+            <p class="text-or-signin">or</p>
+        </div>
+        <form action="{% url 'signin' %}" method="POST" class="form-signin">
+            {% csrf_token %}
+            <input type="email" name="username" id="id_username" required autofocus autocapitalize="none"
+                autocomplete="email" placeholder="Email">
+            <input type="password" name="password" id="id_password" required autocomplete="current-password"
+                placeholder="Password">
+            {{form.captcha}}
+            <a href="#" class="link-forgot-password">Forgot your password?</a>
+            <button type="submit" class="btn-login">Login</button>
+        </form>
+        <p class="text-btn-signup">Don't have an account? <a href="{% url 'signup' %}">Sign up</a></p>
+    </section>
 </main>
 {% endblock %}
