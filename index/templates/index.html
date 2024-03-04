@@ -8,6 +8,148 @@
 {% include 'layouts/header.html' %}
 <main class="main-index">
     {% include 'layouts/messages.html' %}
-    dsf
+    <section class="section-1">
+        <div class="container-text-index-1">
+            <h1>Build stronger digital <span>connections</span></h1>
+            <p>
+                Use our URL shortener, QR Codes to engage your audience and connect them to the
+                right
+                information. Build, edit, and track everything inside the URLTrim Connections Platform.
+            </p>
+            <a href="{% url 'signup' %}" class="btn-get-started">Get Started for Free</a>
+        </div>
+        <img src="{% static 'images/image-index-1.svg' %}" alt="Qr-image" class="image-index-qr">
+    </section>
+
+    <section class="section-2">
+        <ul class="container-icons-section-2">
+            <li>
+                <figure>
+                    <img src="{% static 'icons/url-icon.svg' %}" alt="url-icon" class="image-section-2-figure">
+                    <figcaption class="container-text-section-2-figcaption">
+                        Shorten links of any size in URLTrim
+                    </figcaption>
+                </figure>
+            </li>
+            <li>
+                <figure>
+                    <img src="{% static 'icons/free-icon.svg' %}" alt="free-icon" class="image-section-2-figure">
+                    <figcaption class="container-text-section-2-figcaption">
+                        Create as many links as you want and share them for free
+                    </figcaption>
+                </figure>
+            </li>
+            <li>
+                <figure>
+                    <img src="{% static 'icons/padlock-icon.svg' %}" alt="padlock-icon" class="image-section-2-figure">
+                    <figcaption class="container-text-section-2-figcaption">
+                        We use https protocol with data encryption in URLs
+                    </figcaption>
+                </figure>
+            </li>
+            <li>
+                <figure>
+                    <img src="{% static 'icons/statistics-icon.svg' %}" alt="statistics-icon"
+                        class="image-section-2-figure">
+                    <figcaption class="container-text-section-2-figcaption">
+                        Verify the number of clicks on your shortened URL
+                    </figcaption>
+                </figure>
+            </li>
+            <li>
+                <figure>
+                    <img src="{% static 'icons/devices-icon.svg' %}" alt="devices-icon" class="image-section-2-figure">
+                    <figcaption class="container-text-section-2-figcaption">
+                        Compatible with any mobile device, tablet and computer
+                    </figcaption>
+                </figure>
+            </li>
+        </ul>
+    </section>
+
+    <section class="section-3">
+        <div class="container-text-section-3">
+            <h1>
+                The URLTrim Connections Platform
+            </h1>
+            <p>
+                All the products you need to build brand connections, manage links and QR Codes, and connect with
+                audiences everywhere,
+                in a single unified platform.
+            </p>
+
+            <div class="container-card-section-3">
+                <div class="card card-1">
+                    <div class="container-img-section-3">
+                        <img src="{% static 'icons/link-card-icon.svg'%}" alt="link-icond">
+                        <h1>URL Shortener</h1>
+                    </div>
+                    <p class="text-explaind-card">
+                        A comprehensive solution to help make every point of connection between your content and your
+                        audience more powerful.
+                    </p>
+                    <div class="container-text-points-section-3">
+                        <p>
+                            <strong>
+                                Popular Link Management Features
+                            </strong>
+                        </p>
+                        <ul class="container-card-points">
+                            <li>
+                                URL shortening at scale
+                            </li>
+                            <li>
+                                Custom links with your brand
+                            </li>
+                            <li>
+                                URL redirects
+                            </li>
+                            <li>
+                                Advanced analytics & tracking
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="{% url 'signup' %}" class="link-card-section-3">Get Started for Free</a>
+                </div>
+                <div class="card card-2">
+                    <div class="container-img-section-3">
+                        <img src="{% static 'icons/qr-card-icon.svg' %}" alt="qr-icon">
+                        <h1>QR Codes</h1>
+                    </div>
+                    <p class="text-explaind-card">
+                        QR Code solutions for every customer, business and brand experience.
+                    </p>
+                    <div class="container-text-points-section-3">
+                        <p>
+                            <strong>
+                                Popular QR Code Features
+                            </strong>
+                        </p>
+                        <ul class="container-card-points">
+                            <li>
+                                Fully customizable QR Codes
+                            </li>
+                            <li>
+                                Dynamic QR Codes
+                            </li>
+                            <li>
+                                QR Code types & destination options
+                            </li>
+                            <li>
+                                Advanced analytics & tracking
+                            </li>
+                        </ul>
+                    </div>
+                    <a href="{% url 'signup' %}" class="link-card-section-3">Get Started for Free</a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section-4">
+        <h1>¿What is URLTrim?</h1>
+        <p>
+
+        </p>
+    </section>
 </main>
 {% endblock %}
