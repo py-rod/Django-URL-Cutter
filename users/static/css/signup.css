@@ -1,8 +1,3 @@
-.main-signup {
-    display: flex;
-    align-items: center;
-}
-
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus {
@@ -17,6 +12,8 @@ input:-webkit-autofill:focus {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    padding-top: 50px;
+    padding-bottom: 30px;
 }
 
 .container-url-home {
