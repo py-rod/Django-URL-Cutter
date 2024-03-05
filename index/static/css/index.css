@@ -174,7 +174,6 @@
 .container-card-points>li {
     margin-bottom: 20px;
     line-height: 22px;
-    font-size: 14px;
     padding-left: 31px;
     background-image: url("../icons/check-icon.svg");
     background-position: top left;
@@ -192,4 +191,74 @@
     text-decoration: none;
     padding: 12px 0;
     border-radius: 8px;
+}
+
+
+
+/* SECTION 4 */
+.section-4 {
+    margin-top: 200px;
+    font-family: var(--dm-sans);
+}
+
+.section-4>h1 {
+    text-align: center;
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--text-100);
+}
+
+.detail:first-child {
+    border-top: 1px solid var(--bg-300);
+}
+
+.detail {
+    border-bottom: 1px solid var(--bg-300);
+    padding: 20px;
+    user-select: none;
+}
+
+.summary {
+    font-size: 1.5rem;
+    color: var(--text-100);
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.detail>p {
+    font-size: 1.1rem;
+    color: var(--text-color2);
+}
+
+
+
+/* SECTION 5 */
+
+.section-5 {
+    padding: 50px 0;
+    margin-top: 100px;
+    background-color: var(--text-100);
+}
+
+.section-5>h1 {
+    font-size: 3rem;
+    color: white;
+    font-weight: 700;
+    font-family: var(--dm-sans);
+    text-align: center;
+}
+
+.section-5>a {
+    display: block;
+    width: fit-content;
+    text-decoration: none;
+    background-color: var(--text-color1);
+    color: white;
+    padding: 15px 130px;
+    border-radius: 8px;
+    margin: 0 auto;
+    margin-top: 40px;
+    font-weight: 500;
+    font-size: 1.3rem;
+    cursor: pointer;
 }
