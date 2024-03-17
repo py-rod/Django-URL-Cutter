@@ -17,21 +17,7 @@
             <div>
                 <div class="container-text-create">
                     <label for="original_url" class="label-original-url">Destination</label>
-                    <script>
-                        document.addEventListener("DOMContentLoaded", function () {
-                            let text = document.querySelector('.text-enter-create');
-                            text.style.display = 'none'
-                            let inputOrigin = document.getElementById('id_original_url');
-
-                            inputOrigin.addEventListener('input', function (event) {
-                                if (event.target.value !== '') {
-                                    text.style.display = 'block';
-                                } else {
-                                    text.style.display = 'none';
-                                }
-                            });
-                        });
-                    </script>
+                    <script src="{% static 'js/create_url_hiddent.js' %}"></script>
                     <p class="text-enter-create">Hit <span>ENTER</span> to quick create</p>
                 </div>
                 <input type="text" name="original_url" id="id_original_url" maxlength="800" autofocus required
