@@ -36,6 +36,8 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     email = models.EmailField(blank=False, unique=True)
     first_name = models.CharField(max_length=200, blank=False, unique=False)
     last_name = models.CharField(max_length=200, blank=False, unique=False)
+    acronym_name = models.CharField(
+        max_length=50, blank=False, unique=False, default="")
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=False)
     is_superuser = models.BooleanField(default=False)
@@ -55,4 +57,5 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     def save(self, *args, **kwargs) -> None:
         self.first_name = self.first_name.title()
         self.last_name = self.last_name.title()
+        self.acronym_name = f"{self.first_name[0]}{self.last_name[0]}"
         super().save(*args, **kwargs)

@@ -1,0 +1,59 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/menu_shortened.css' %}" type="text/css">
+{% endblock %}
+{% block title %}URLTrim | Link Dashboard{% endblock %}
+
+
+{% block content %}
+{% include 'layouts/header.html' %}
+<main class="main-menu-urls">
+    {% include 'layouts/messages.html' %}
+    <section class="section-1">
+        <div class="container-btn-create-link">
+            <h1 class="text-title-1">Your Connections Platform</h1>
+
+            <div class="dropdown-create-link" onclick="toggleDropdownCreateLink()">
+                <button class="dropbtn-create-link"> + Create new</button>
+                <div class="dropdown-content-create-link" id="myDropdown-create-link">
+                    <a href="{% url 'create_url' %}">
+                        <img src="{% static 'icons/link-card-icon.svg' %}" alt="link-icon">
+                        Link
+                    </a>
+                    <a href="#">
+                        <img src="{% static 'icons/qr-card-icon.svg' %}" alt="qr-icon">
+                        QR Code
+                    </a>
+                </div>
+                <script src="{% static 'js/dropdown_create_link.js' %}"></script>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-2">
+        <div class="container-link">
+            <img src="{% static 'images/Share-link-rafiki.svg' %}" alt="image-link">
+            <div class="container-text-link-section-2">
+                <h1>Links</h1>
+                <a href="#">View your links</a>
+            </div>
+        </div>
+        <div class="container-qr-code">
+            <img src="{% static 'images/QR-Code-rafiki.svg' %}" alt="image-qr">
+            <div class="container-text-link-section-2">
+                <h1>QR Codes</h1>
+                <a href="#">View your QR Codes</a>
+            </div>
+        </div>
+        <div class="container-analytics">
+            <img src="{% static 'images/Data-Trends-bro.svg' %}" alt="image-analytics">
+            <div class="container-text-link-section-2">
+                <h1>Analytics</h1>
+                <a href="#">View your analytics</a>
+            </div>
+        </div>
+    </section>
+
+</main>
+{% endblock %}

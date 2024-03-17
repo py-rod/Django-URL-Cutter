@@ -1,3 +1,7 @@
+.main-signin {
+    position: relative;
+}
+
 input:-webkit-autofill,
 input:-webkit-autofill:hover,
 input:-webkit-autofill:focus {

@@ -12,10 +12,16 @@
         {% if user.is_authenticated %}
         <div class="container-dropdown-profile">
             <div class="dropdown" onclick="toggleDropdown()">
-                <button class="dropbtn">Menú</button>
+                <button class="dropbtn">{{user.acronym_name}}</button>
                 <div class="dropdown-content" id="myDropdown">
-                    <a href="#">Opción 1</a>
-                    <a href="#">Opción 2</a>
+                    <div class="container-info-user-menu">
+                        <span>{{user.acronym_name}}</span>
+                        <div class="container-info-user-names">
+                            <p>{{user.first_name}} {{user.last_name}}</p>
+                            <p>{{user.email}}</p>
+                        </div>
+                    </div>
+                    <a href="#">Profile</a>
                     <a href="{% url 'logout' %}">Logout</a>
                 </div>
                 <script src="{% static 'js/dropdown_menu.js' %}"></script>

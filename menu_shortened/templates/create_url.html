@@ -1,0 +1,59 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/create_url.css' %}" type="text/css">
+{% endblock %}
+{% block title %}URLTrim | Links{% endblock %}
+
+
+{% block content %}
+{% include 'layouts/header.html' %}
+<main class="main-create-url">
+    {% include 'layouts/messages.html' %}
+    <section class="section-1">
+        <h1>Create new</h1>
+        <form action="{% url 'create_url' %}" method="POST" class="form-create-url">
+            {% csrf_token %}
+            <div>
+                <div class="container-text-create">
+                    <label for="original_url" class="label-original-url">Destination</label>
+                    <script>
+                        document.addEventListener("DOMContentLoaded", function () {
+                            let text = document.querySelector('.text-enter-create');
+                            text.style.display = 'none'
+                            let inputOrigin = document.getElementById('id_original_url');
+
+                            inputOrigin.addEventListener('input', function (event) {
+                                if (event.target.value !== '') {
+                                    text.style.display = 'block';
+                                } else {
+                                    text.style.display = 'none';
+                                }
+                            });
+                        });
+                    </script>
+                    <p class="text-enter-create">Hit <span>ENTER</span> to quick create</p>
+                </div>
+                <input type="text" name="original_url" id="id_original_url" maxlength="800" autofocus required
+                    placeholder="https://example.com/my-long-url" class="url-origin">
+            </div>
+            <div>
+                <label for="title">Title(optional)</label>
+                <input type="text" name="title" id="id_title" maxlength="200">
+            </div>
+            <div class="container-custom-url-short">
+                <div>
+                    <label for="domain">Domain</label>
+                    <input type="text" value="URLTrim.ly" readonly>
+                </div>
+                <span>/</span>
+                <div>
+                    <label for="short_url"><span>Custom back-half</span> (optional)</label>
+                    <input type="text" name="short_url" id="id_short_url" , maxlength="100">
+                </div>
+            </div>
+            <button type="submit" class="btn-create-link">Create</button>
+        </form>
+    </section>
+</main>
+{% endblock %}

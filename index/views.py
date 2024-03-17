@@ -6,6 +6,6 @@ from users.decorators import user_not_authenticated
 
 def home(request):
     if request.user.is_authenticated:
-        return render(request, "menu_urls.html")
+        return redirect("menu_shortened")
     else:
         return render(request, "index.html")

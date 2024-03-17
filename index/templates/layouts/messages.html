@@ -30,7 +30,7 @@
         <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Success:" style="width:15px; height:15px;">
             <use xlink:href="#check-circle-fill" />
         </svg>
-        {{ message|safe|escape }}
+        <p style="max-width: 250px; margin: 0;">{{ message|safe|escape }}</p>
     </div>
     <script src="{% static 'js/success.js' %}"></script>
 
@@ -40,7 +40,7 @@
         <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Warning:" style="width:15px; height:15px;">
             <use xlink:href="#exclamation-triangle-fill" />
         </svg>
-        {{ message|safe|escape }}
+        <p style="max-width: 250px; margin: 0;">{{ message|safe|escape }}</p>
     </div>
     <script src="{% static 'js/error.js' %}"></script>
 
@@ -51,7 +51,7 @@
         <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Info:" style="width:15px; height:15px;">
             <use xlink:href="#info-fill" />
         </svg>
-        {{ message|safe|escape }}
+        <p style="max-width: 250px; margin: 0;">{{ message|safe|escape }}</p>
     </div>
     <script src="{% static 'js/info.js' %}"></script>
 
@@ -62,7 +62,7 @@
         <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Warning:" style="width:15px; height:15px;">
             <use xlink:href="#exclamation-triangle-fill" />
         </svg>
-        {{ message|safe|escape }}
+        <p style="max-width: 250px; margin: 0;">{{ message|safe|escape }}</p>
     </div>
     <script src="{% static 'js/warning.js' %}"></script>
 
