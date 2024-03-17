@@ -1,6 +1,6 @@
 from django.apps import AppConfig
 
 
-class MenuShortenedConfig(AppConfig):
+class QrCodeConfig(AppConfig):
     default_auto_field = 'django.db.models.BigAutoField'
-    name = 'menu_shortened'
+    name = 'qr_code'

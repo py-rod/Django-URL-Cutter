@@ -48,7 +48,9 @@ DEFAULT_APPS = [
 PROJECT_APPS = [
     'index',
     'users',
-    'menu_shortened'
+    'dashboard',
+    'url_link',
+    'qr_code',
 ]
 
 THIRD_PARTY_APPS = [

@@ -23,7 +23,8 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("", include("index.urls")),
     path("", include("users.urls")),
-    path("", include("menu_shortened.urls")),
+    path("", include("dashboard.urls")),
+    path("", include("url_link.urls")),
     path('', include('allauth.urls')),
 
 
