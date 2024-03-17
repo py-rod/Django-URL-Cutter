@@ -25,8 +25,12 @@ urlpatterns = [
     path("", include("users.urls")),
     path("", include("dashboard.urls")),
     path("", include("url_link.urls")),
+    path("", include("qr_codes_link.urls")),
     path('', include('allauth.urls')),
 
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+SERVE_QR_CODE_IMAGE_PATH = 'media/qr_images/'

@@ -50,7 +50,7 @@ PROJECT_APPS = [
     'users',
     'dashboard',
     'url_link',
-    'qr_code',
+    'qr_codes_link',
 ]
 
 THIRD_PARTY_APPS = [
@@ -61,6 +61,7 @@ THIRD_PARTY_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'qr_code',
 ]
 
 INSTALLED_APPS = DEFAULT_APPS + PROJECT_APPS + THIRD_PARTY_APPS
