@@ -1,0 +1,25 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% load qr_code %}
+{% block head %}
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+{% endblock %}
+{% block title %}URLTrim | QR Codes{% endblock %}
+
+{% block content %}
+{% include 'layouts/header.html' %}
+<main class="main-qr-codes">
+    {% include 'layouts/messages.html' %}
+    <section class="section-1">
+        {% qr_from_text "URLTRim.ly/nnnnnn" size="h" image_format='svg' error_correction='L' border=1 %}
+        {% qr_from_text "holadfgsdsfdsfdf" options=my_options %}
+
+        <form action="" method="POST">
+            {% csrf_token %}
+            {{form}}
+            <button type="submit">Save</button>
+        </form>
+    </section>
+</main>
+{% endblock %}

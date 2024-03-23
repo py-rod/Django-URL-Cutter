@@ -21,7 +21,7 @@
                         <img src="{% static 'icons/link-card-icon.svg' %}" alt="link-icon">
                         Link
                     </a>
-                    <a href="#">
+                    <a href="{% url 'create_qr_codes' %}">
                         <img src="{% static 'icons/qr-card-icon.svg' %}" alt="qr-icon">
                         QR Code
                     </a>
@@ -36,7 +36,7 @@
             <img src="{% static 'images/Share-link-rafiki.svg' %}" alt="image-link">
             <div class="container-text-link-section-2">
                 <h1>Links</h1>
-                <a href="#">View your links</a>
+                <a href="{% url 'all_url_links' %}">View your links</a>
             </div>
         </div>
         <div class="container-qr-code">
