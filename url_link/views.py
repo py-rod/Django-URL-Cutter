@@ -4,30 +4,27 @@ from .models import SaveUrlShortened
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib import messages
 from .forms import CreateUrlShort
-
+import requests
+from bs4 import BeautifulSoup
+from .process_links import save_when_title_is_not_none, save_when_title_is_none
 # Create your views here.
 
 
 @login_required(login_url='signin')
 def create_url_link(request):
-    domain = get_current_site(request).domain
     if request.method == 'POST':
         form = CreateUrlShort(request.POST)
         if form.is_valid():
-            try:
-                create_new_url = SaveUrlShortened()
-                create_new_url.user = request.user.email
-                create_new_url.original_url = form.cleaned_data['original_url']
-                create_new_url.title = form.cleaned_data['title']
-                create_new_url.short_url = form.cleaned_data['short_url']
-                create_new_url.save()
-
-                messages.success(request, 'The url short has been created')
-                return redirect('dashboard')
-            except:
-                messages.error(
-                    request, 'There was a problem with your custom url, write another one')
-                return redirect('create_url')
+            # Viendo si el usuario introdujo un titulo a la url
+            window_title = form.cleaned_data['title']
+            if window_title:
+                return save_when_title_is_not_none(request, form)
+            else:
+                return save_when_title_is_none(request, form)
+        else:
+            messages.error(
+                request, 'This custom back-half is already exists. Try another one')
+            return redirect('create_url')
 
     else:
         form = CreateUrlShort()
