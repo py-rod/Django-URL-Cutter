@@ -1,8 +1,8 @@
-from typing import Iterable
 from django.db import models
-from django.urls import reverse, reverse_lazy
+from django.urls import reverse
 import random
 import string
+from datetime import datetime
 # Create your models here.
 
 
@@ -18,8 +18,11 @@ class SaveUrlShortened(models.Model):
     original_url = models.CharField(max_length=800, default='', blank=False)
     title = models.CharField(max_length=200, default='', blank=True)
     short_url = models.SlugField(max_length=100, unique=True, blank=True)
+    icon = models.CharField(
+        max_length=400, default='../media/default/icon_broken.webp', editable=True)
     clicks = models.PositiveIntegerField(default=0)
-    created = models.DateTimeField(auto_now_add=True)
+    is_active = models.BooleanField(default=True)
+    created = models.DateTimeField(auto_created=True, auto_now_add=True)
 
     class Meta:
         verbose_name_plural = 'Url Shorts'
@@ -28,27 +31,23 @@ class SaveUrlShortened(models.Model):
     def save(self, *args, **kwargs):
         if not self.short_url:
             new_url_short = self.generate_short_url()
-            print('Esta vacio y esto es en modelo')
+
             if SaveUrlShortened.objects.filter(short_url=new_url_short).exists() == False:
-                print('No existe esta url corta en la base de datos')
                 self.short_url = new_url_short
                 super().save(*args, **kwargs)
 
             else:
                 print('antes del while')
                 while SaveUrlShortened.objects.filter(short_url=self.short_url).exists():
-                    print('Corriendo el bucle por repetido')
                     self.short_url = self.generate_short_url()
                 super().save(*args, **kwargs)
 
         else:
-            print('No esta vacio')
-            print('verificando si es el mismo short, para saber si es el mismo guardarlo')
+
             if self.short_url == self.short_url:
                 self.short_url = self.short_url
                 super().save(*args, **kwargs)
-            if not SaveUrlShortened.objects.filter(short_url=self.short_url).exists():
-                print('dsf')
+
                 self.short_url = f'{self.short_url}'
                 super().save(*args, **kwargs)
 

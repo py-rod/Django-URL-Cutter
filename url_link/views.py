@@ -6,7 +6,7 @@ from django.contrib import messages
 from .forms import CreateUrlShort
 import requests
 from bs4 import BeautifulSoup
-from .process_links import save_when_title_is_not_none, save_when_title_is_none
+from .process_links import TitleIsNotNone, TitleIsNone
 # Create your views here.
 
 
@@ -18,9 +18,9 @@ def create_url_link(request):
             # Viendo si el usuario introdujo un titulo a la url
             window_title = form.cleaned_data['title']
             if window_title:
-                return save_when_title_is_not_none(request, form)
+                return TitleIsNotNone(request, form).save_when_title_is_not_none()
             else:
-                return save_when_title_is_none(request, form)
+                return TitleIsNone(request, form).save_when_title_is_none()
         else:
             messages.error(
                 request, 'This custom back-half is already exists. Try another one')
@@ -46,7 +46,8 @@ def redirect_urls(request, short_url):
 
 def all_url_links(request):
 
-    urls_obj = SaveUrlShortened.objects.filter(user=request.user.email)
+    urls_obj = SaveUrlShortened.objects.filter(
+        user=request.user.email, is_active=True)
     domain = get_current_site(request).domain
 
     return render(request, 'all_url_links.html', {
