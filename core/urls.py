@@ -21,12 +21,12 @@ from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path("", include("index.urls")),
-    path("", include("users.urls")),
-    path("", include("dashboard.urls")),
-    path("", include("url_link.urls")),
-    path("", include("qr_codes_link.urls")),
-    path('', include('allauth.urls')),
+    path('', include("index.urls")),
+    path('accounts/', include("users.urls")),
+    path('dashboard/', include("dashboard.urls")),
+    path('url_links/', include("url_link.urls")),
+    path('qr_codes_links/', include("qr_codes_link.urls")),
+    path('accounts/', include('allauth.urls')),
 
 
 

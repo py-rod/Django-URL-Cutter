@@ -1,24 +1,79 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
-{% load qr_code %}
 {% block head %}
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+<link rel="stylesheet" href="{% static 'css/create_qr_codes.css' %}" type="text/css">
 {% endblock %}
 {% block title %}URLTrim | QR Codes{% endblock %}
 
 {% block content %}
 {% include 'layouts/header.html' %}
-<main class="main-qr-codes">
+<main class="main-create-qr-code">
     {% include 'layouts/messages.html' %}
     <section class="section-1">
-        {% qr_from_text "URLTRim.ly/nnnnnn" size="h" image_format='svg' error_correction='L' border=1 %}
-        {% qr_from_text "holadfgsdsfdsfdf" options=my_options %}
-
-        <form action="" method="POST">
+        <h1>Create a QR Code</h1>
+        <form action="{% url 'create_new_qr_codes' %}" method="POST" class="form-create-qr-code">
             {% csrf_token %}
-            {{form}}
-            <button type="submit">Save</button>
+            <div>
+                <div class="container-text-create-qr">
+                    <label for="id_original_url" class="label-original-url">Destination</label>
+                    <script src="{% static 'js/create_url_hiddent.js' %}"></script>
+                    <p class="text-enter-create">Hit <span>ENTER</span> to quick create</p>
+                </div>
+                <input type="text" name="original_url" id="id_original_url" maxlength="800" autofocus required
+                    placeholder="https://example.com/my-long-url" class="url-origin">
+            </div>
+            <div>
+                <label for="id_title">Title(optional)</label>
+                <input type="text" name="title" id="id_title" maxlength="200">
+            </div>
+            <div class="container-custom-url-short">
+                <div>
+                    <label for="domain">Domain</label>
+                    <input type="text" value="URLTrim.ly" readonly>
+                </div>
+                <span>/</span>
+                <div>
+                    <label for="id_short_url"><span>Custom back-half</span> (optional)</label>
+                    <input type="text" name="short_url" id="id_short_url" maxlength="100">
+                </div>
+            </div>
+
+
+            <div id="hiddent_qr_options" style="display: none;">
+                <div class="container-qr-style-1">
+                    <div>
+                        <label for="id_color_qr">Background qr color</label>
+                        <input type="color" name="color_qr" id="id_color_qr" maxlength="200" value="#ffffff">
+                    </div>
+                    <div>
+                        <label for="id_bg_color_qr">QR Color</label>
+                        <input type="color" name="bg_color_qr" id="bg_color_qr" value="#000000">
+                    </div>
+                </div>
+                <div class="container-qr-style-2">
+                    <div>
+                        <label for="id_border_color_qr">Border color</label>
+                        <input type="color" name="border_color_qr" id="id_border_color_qr" value="#FFFFFF">
+                    </div>
+                    <div>
+                        <label for="id_border_qr">Border</label>
+                        <input type="number" name="border_qr" id="id_border_qr" min="0" value="0"
+                            class="input-border-qr" oninput="setDefaultValue(event)">
+                        <script src="{% static 'js/status_border.js' %}"></script>
+                    </div>
+                </div>
+            </div>
+            <div class="content-options">
+                <div style="align-items: center; display: flex; gap:10px;">
+                    <span class="text-more-options">More options</span>
+                    <label class="container-switch">
+                        <input type="checkbox" class="input-switch" id="more_options">
+                        <span class="slider round"></span>
+                    </label>
+                    <script src="{% static 'js/more_options.js' %}"></script>
+                </div>
+                <button type="submit" class="btn-create-qr-code">Create</button>
+            </div>
         </form>
     </section>
 </main>

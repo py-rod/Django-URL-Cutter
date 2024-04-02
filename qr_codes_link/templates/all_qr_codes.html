@@ -1,0 +1,22 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% load qr_code %}
+{% block head %}
+{% endblock %}
+{% block title %}URLTrim | QR Codes{% endblock %}
+
+
+{% block content %}
+{% include 'layouts/header.html' %}
+<main>
+
+
+    {% for qr_code in qr_codes %}
+    {% with dominio=domain %}
+    {% with url_completa=dominio|add:qr_code.short_url %}
+    {% qr_from_text url_completa light_color=qr_code.color_qr dark_color=qr_code.bg_color_qr quiet_zone_color=qr_code.border_color_qr border=qr_code.border_qr image_format='PNG' %}
+    {% endwith %}
+    {% endwith %}
+    {% endfor %}
+</main>
+{% endblock %}

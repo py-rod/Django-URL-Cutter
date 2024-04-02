@@ -11,6 +11,19 @@ from .process_links import TitleIsNotNone, TitleIsNone
 
 
 @login_required(login_url='signin')
+def all_url_links(request):
+
+    urls_obj = SaveUrlShortened.objects.filter(
+        user=request.user.email, is_active=True)
+    domain = get_current_site(request).domain
+
+    return render(request, 'all_url_links.html', {
+        'data_urls': urls_obj,
+        'domain': domain
+    })
+
+
+@login_required(login_url='signin')
 def create_url_link(request):
     if request.method == 'POST':
         form = CreateUrlShort(request.POST)
@@ -42,15 +55,3 @@ def redirect_urls(request, short_url):
         return redirect(url_obje.original_url)
     except SaveUrlShortened.DoesNotExist:
         return HttpResponse('No existe la url acortada')
-
-
-def all_url_links(request):
-
-    urls_obj = SaveUrlShortened.objects.filter(
-        user=request.user.email, is_active=True)
-    domain = get_current_site(request).domain
-
-    return render(request, 'all_url_links.html', {
-        'data_urls': urls_obj,
-        'domain': domain
-    })

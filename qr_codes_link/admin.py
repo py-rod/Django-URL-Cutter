@@ -6,7 +6,7 @@ from .models import QRGenerator
 
 @admin.register(QRGenerator)
 class QRGeneratorAdmin(admin.ModelAdmin):
-    list_display = ('id', 'user', 'url_short', 'title')
-    list_display_links = ('id', 'user', 'url_short', 'title')
+    list_display = ('id', 'user', 'short_url', 'title')
+    list_display_links = ('id', 'user', 'short_url', 'title')
     list_per_page = 20
-    search_fields = ('id', 'url_short', 'title')
+    search_fields = ('id', 'short_url', 'title')

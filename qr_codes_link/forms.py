@@ -5,4 +5,5 @@ from .models import QRGenerator
 class CreateQRCodeForm(forms.ModelForm):
     class Meta:
         model = QRGenerator
-        fields = ['user', 'title', 'original_url', 'url_short', 'qr_image']
+        fields = ['title', 'original_url', 'short_url',
+                  'color_qr', 'bg_color_qr', 'border_color_qr', 'border_qr']

@@ -1,19 +1,41 @@
 {% extends 'layouts/base.html' %}
 {% load static %}
 {% block head %}
+<link rel="stylesheet" href="{% static 'css/all_url_links.css' %}">
 {% endblock %}
 {% block title%}URLTrim | Links{% endblock %}
 
 {% block content %}
 {% include 'layouts/header.html' %}
-<main>
-    {% for data_url in data_urls %}
-    <div>
-        <p>{{data_url.title}}</p>
-        <a href="{{data_url.redirect_original_url}}" target="_blank">{{domain}}/{{data_url.short_url}}</a>
-        <img src="{{data_url.icon}}" alt="">
-        <p>{{data_url.created}}</p>
-    </div>
-    {% endfor %}
+<main class="main-all-links">
+
+    <section class="section-1">
+        <div class="container-filters">
+            <h1>Links</h1>
+        </div>
+
+        <ul class="container-list-links">
+            {% for data_url in data_urls %}
+            <li>
+                <img src="{{data_url.icon}}" alt="Icon site">
+                <div class="container-text-links">
+                    <h4>{{data_url.title}}</h4>
+                    <a href="{{data_url.redirect_original_url}}" target="_blank">{{domain}}/{{data_url.short_url}}</a>
+                    <a href="{{data_url.original_url}}">{{data_url.original_url}}</a>
+                    <div class="content-analytic-data">
+                        <div class="div-click">
+                            <img src="{% static 'icons/click_icon.svg' %}" alt="click-icon">
+                            <span>click data {{data_url.clicks}}</span>
+                        </div>
+                        <div class="div-date">
+                            <img src="{% static 'icons/calendar_icon.svg' %}" alt="calendar-icon">
+                            <span>{{data_url.created}}</span>
+                        </div>
+                    </div>
+                </div>
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
 </main>
 {% endblock %}

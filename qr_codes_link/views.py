@@ -2,23 +2,41 @@ from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from qr_code.qrcode.utils import QRCodeOptions
 from .forms import CreateQRCodeForm
+from .models import QRGenerator
+from .process_qr_codes import TitleIsNone, TitleIsNotNone
+from django.contrib import messages
+from django.contrib.sites.shortcuts import get_current_site
 # Create your views here.
 
 
 def create_qr_codes(request):
-    my_options = QRCodeOptions(
-        quiet_zone_color='red', finder_dark_color="blue", border=2, light_color='green', dark_color='yellow', finder_light_color='purple', separator_color='black', image_format='PNG')
     if request.method == 'POST':
-        form = CreateQRCodeForm(
-            request.POST, request.FILES, instance=request.user)
+        form = CreateQRCodeForm(request.POST)
         if form.is_valid():
-            form.save()
-            return redirect('dashboard')
+            # Viendo si el usuario introdujo un titulo a la url
+            window_title = form.cleaned_data['title']
+            if window_title:
+                return TitleIsNotNone(request, form).save_when_title_is_not_none()
+            else:
+                return TitleIsNone(request, form).save_when_title_is_none()
         else:
-            pass
+            messages.error(
+                request, 'This custom back-half is already exists. Try another one')
+            return redirect('create_url')
     else:
-        form = CreateQRCodeForm(instance=request.user)
+        form = CreateQRCodeForm()
     return render(request, 'create_qr_codes.html', {
-        'my_options': my_options,
-        'form': form
+        'form': form,
+    })
+
+
+def all_qr_codes(request):
+
+    qr_codes = QRGenerator.objects.all()
+
+    domain = get_current_site(request).domain
+
+    return render(request, 'all_qr_codes.html', {
+        'qr_codes': qr_codes,
+        'domain': f'{domain}/'
     })
