@@ -17,9 +17,10 @@ class QRGenerator(models.Model):
     original_url = models.CharField(max_length=800, default='', blank=False)
     title = models.CharField(max_length=200, blank=True, default='')
     short_url = models.CharField(max_length=100, unique=True, blank=True)
-    color_qr = models.CharField(max_length=200, default='#FFFFFF', blank=True)
     bg_color_qr = models.CharField(
-        max_length=200, default='#000000', blank=True)
+        max_length=200, default='#FFFFFF', blank=True)
+    color_qr = models.CharField(
+        max_length=200, default='#00CA7D', blank=True)
     border_color_qr = models.CharField(
         max_length=200, default='#FFFFFF', blank=True)
     border_qr = models.IntegerField(default=0)

@@ -19,19 +19,20 @@
             <li>
                 <img src="{{data_url.icon}}" alt="Icon site">
                 <div class="container-text-links">
-                    <h4>{{data_url.title}}</h4>
-                    <a href="{{data_url.redirect_original_url}}" target="_blank">{{domain}}/{{data_url.short_url}}</a>
-                    <a href="{{data_url.original_url}}">{{data_url.original_url}}</a>
-                    <div class="content-analytic-data">
-                        <div class="div-click">
-                            <img src="{% static 'icons/click_icon.svg' %}" alt="click-icon">
-                            <span>click data {{data_url.clicks}}</span>
+                    <h3>{{data_url.title}}</h4>
+                        <a href="{{data_url.redirect_original_url}}"
+                            target="_blank">{{domain}}/{{data_url.short_url}}</a>
+                        <a href="{{data_url.original_url}}">{{data_url.original_url}}</a>
+                        <div class="content-analytic-data">
+                            <div class="div-click">
+                                <img src="{% static 'icons/click_icon.svg' %}" alt="click-icon">
+                                <span>clicks {{data_url.clicks}}</span>
+                            </div>
+                            <div class="div-date">
+                                <img src="{% static 'icons/calendar_icon.svg' %}" alt="calendar-icon">
+                                <span>{{data_url.created}}</span>
+                            </div>
                         </div>
-                        <div class="div-date">
-                            <img src="{% static 'icons/calendar_icon.svg' %}" alt="calendar-icon">
-                            <span>{{data_url.created}}</span>
-                        </div>
-                    </div>
                 </div>
             </li>
             {% endfor %}

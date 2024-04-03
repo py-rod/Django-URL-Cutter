@@ -2,6 +2,7 @@
 {% load static %}
 {% load qr_code %}
 {% block head %}
+<link rel="stylesheet" href="{% static 'css/all_qr_codes.css' %}" type="text/css">
 {% endblock %}
 {% block title %}URLTrim | QR Codes{% endblock %}
 
@@ -9,14 +10,41 @@
 {% block content %}
 {% include 'layouts/header.html' %}
 <main>
+    <section class="section-1">
+        <h1>QR Codes</h1>
+
+        <ul class="container-list-qr-codes">
+
+            {% for qr_code in qr_codes %}
+            <li>
+                {% with dominio=domain %}
+                {% with url_completa=dominio|add:qr_code.short_url %}
+                {% qr_from_text url_completa light_color=qr_code.color_qr dark_color=qr_code.bg_color_qr quiet_zone_color=qr_code.border_color_qr border=qr_code.border_qr image_format='SVG' %}
+                <div class="container-qr-info">
+                    <h3 title="{{qr_code.title}}">{{qr_code.title}}</h3>
+                    <p>Website</p>
+                    <div class="container-original-url">
+                        <img src="{% static 'icons/arrow_right.svg' %}" alt="arrow">
+                        <a href="{{qr_code.original_url}}" target="_blank">{{qr_code.original_url}}</a>
+                    </div>
+                    <div class="container-analytic-data">
+                        <div>
+                            <img src="{% static 'icons/total_scan_qr.svg' %}" alt="icon qr scan">
+                            <span>Scans</span>
+                        </div>
+                        <div>
+                            <img src="{% static 'icons/calendar_icon.svg' %}" alt="calendar icon">
+                            <span>{{qr_code.created}}</span>
+                        </div>
+                    </div>
+                </div>
+                {% endwith %}
+                {% endwith %}
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
 
 
-    {% for qr_code in qr_codes %}
-    {% with dominio=domain %}
-    {% with url_completa=dominio|add:qr_code.short_url %}
-    {% qr_from_text url_completa light_color=qr_code.color_qr dark_color=qr_code.bg_color_qr quiet_zone_color=qr_code.border_color_qr border=qr_code.border_qr image_format='PNG' %}
-    {% endwith %}
-    {% endwith %}
-    {% endfor %}
 </main>
 {% endblock %}
