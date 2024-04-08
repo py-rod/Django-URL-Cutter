@@ -1,7 +1,7 @@
 from django.db import models
 import string
 import random
-import os
+from django.urls import reverse
 # Create your models here.
 
 
@@ -16,7 +16,7 @@ class QRGenerator(models.Model):
     user = models.CharField(max_length=200, default='')
     original_url = models.CharField(max_length=800, default='', blank=False)
     title = models.CharField(max_length=200, blank=True, default='')
-    short_url = models.CharField(max_length=100, unique=True, blank=True)
+    short_url = models.SlugField(max_length=100, unique=True, blank=True)
     bg_color_qr = models.CharField(
         max_length=200, default='#FFFFFF', blank=True)
     color_qr = models.CharField(
@@ -24,7 +24,8 @@ class QRGenerator(models.Model):
     border_color_qr = models.CharField(
         max_length=200, default='#FFFFFF', blank=True)
     border_qr = models.IntegerField(default=0)
-    clicks = models.PositiveIntegerField(default=0)
+    scans = models.PositiveIntegerField(default=0)
+    type_app = models.CharField(max_length=100, default='', blank=False)
     is_active = models.BooleanField(default=True)
     created = models.DateTimeField(auto_created=True, auto_now_add=True)
 
@@ -56,3 +57,6 @@ class QRGenerator(models.Model):
 
     def __str__(self):
         return f'The QR Code {self.title} has been created'
+
+    def redirect_original_qr_link(self):
+        return reverse('redirect_qr', args=[self.short_url])

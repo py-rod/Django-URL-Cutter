@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.decorators import login_required
 from qr_code.qrcode.utils import QRCodeOptions
 from .forms import CreateQRCodeForm
@@ -7,6 +7,18 @@ from .process_qr_codes import TitleIsNone, TitleIsNotNone
 from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
 # Create your views here.
+
+
+def all_qr_codes(request):
+
+    qr_codes = QRGenerator.objects.all()
+
+    domain = get_current_site(request).domain
+
+    return render(request, 'all_qr_codes.html', {
+        'qr_codes': qr_codes,
+        'domain': f'{domain}/'
+    })
 
 
 def create_qr_codes(request):
@@ -30,13 +42,12 @@ def create_qr_codes(request):
     })
 
 
-def all_qr_codes(request):
-
-    qr_codes = QRGenerator.objects.all()
-
-    domain = get_current_site(request).domain
-
-    return render(request, 'all_qr_codes.html', {
-        'qr_codes': qr_codes,
-        'domain': f'{domain}/'
-    })
+def redirect_qr_codes(request, short_url):
+    try:
+        qr_object = QRGenerator.objects.get(
+            short_url=short_url)
+        qr_object.scans += 1
+        qr_object.save()
+        return redirect(qr_object.original_url)
+    except QRGenerator.DoesNotExist:
+        return HttpResponse('No existe el codigo qr')
