@@ -49,7 +49,6 @@ def create_url_link(request):
 def redirect_urls(request, short_url):
     try:
         url_obje = SaveUrlShortened.objects.get(short_url=short_url)
-        print(url_obje)
         url_obje.clicks += 1
         url_obje.save()
         return redirect(url_obje.original_url)
