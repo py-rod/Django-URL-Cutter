@@ -51,6 +51,7 @@ PROJECT_APPS = [
     'dashboard',
     'url_link',
     'qr_codes_link',
+    'analytics'
 ]
 
 THIRD_PARTY_APPS = [
@@ -62,6 +63,7 @@ THIRD_PARTY_APPS = [
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
     'qr_code',
+    'django_user_agents',
 ]
 
 INSTALLED_APPS = DEFAULT_APPS + PROJECT_APPS + THIRD_PARTY_APPS
@@ -77,6 +79,9 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     # DJANGO ALLOW
     'allauth.account.middleware.AccountMiddleware',
+
+    'django_user_agents.middleware.UserAgentMiddleware',
+
 ]
 
 ROOT_URLCONF = 'core.urls'
@@ -215,3 +220,6 @@ EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 PASSWORD_RESET_TIMEOUT = 1440
+
+
+USER_AGENTS_CACHE = 'default'
