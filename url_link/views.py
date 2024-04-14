@@ -4,9 +4,8 @@ from .models import SaveUrlShortened
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib import messages
 from .forms import CreateUrlShort
-import requests
-from bs4 import BeautifulSoup
 from .process_links import TitleIsNotNone, TitleIsNone
+from analytics.models import UrlAnalytics
 # Create your views here.
 
 
@@ -48,9 +47,26 @@ def create_url_link(request):
 
 def redirect_urls(request, short_url):
     try:
+
+        # SAVE THE NUMBER OF CLICKS WHEN THE USER CLICKS ON THE LINK
         url_obje = SaveUrlShortened.objects.get(short_url=short_url)
         url_obje.clicks += 1
         url_obje.save()
+
+        # URLS ANALYTICS CREATION
+        create_analytics = UrlAnalytics()
+        create_analytics.id_short_url = short_url
+        create_analytics.creator = url_obje.user
+        create_analytics.is_mobile = request.user_agent.is_mobile
+        create_analytics.is_tablet = request.user_agent.is_tablet
+        create_analytics.is_pc = request.user_agent.is_pc
+        create_analytics.is_touch_capable = request.user_agent.is_touch_capable
+        create_analytics.is_bot = request.user_agent.is_bot
+        create_analytics.browser = request.user_agent.browser.family
+        create_analytics.mobile_system = request.user_agent.os.family
+        create_analytics.device = request.user_agent.device.family
+        create_analytics.save()
+
         return redirect(url_obje.original_url)
     except SaveUrlShortened.DoesNotExist:
         return HttpResponse('No existe la url acortada')

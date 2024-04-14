@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 """
 
 from pathlib import Path
+import os
 import environ
 env = environ.Env(
     # set casting, default value
@@ -31,7 +32,7 @@ SECRET_KEY = env("SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = env("DEBUG")
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1', '.vercel.app']
 
 
 # Application definition
@@ -64,6 +65,7 @@ THIRD_PARTY_APPS = [
     'allauth.socialaccount.providers.google',
     'qr_code',
     'django_user_agents',
+    'geoip2'
 ]
 
 INSTALLED_APPS = DEFAULT_APPS + PROJECT_APPS + THIRD_PARTY_APPS
@@ -102,7 +104,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'core.wsgi.application'
+WSGI_APPLICATION = 'core.wsgi.app'
 
 
 # Database
@@ -223,3 +225,7 @@ PASSWORD_RESET_TIMEOUT = 1440
 
 
 USER_AGENTS_CACHE = 'default'
+
+
+# GEOIP2
+GEOIP_PATH = os.path.join(BASE_DIR / 'geoip')

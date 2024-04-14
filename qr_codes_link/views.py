@@ -1,14 +1,15 @@
 from django.shortcuts import render, redirect, HttpResponse
 from django.contrib.auth.decorators import login_required
-from qr_code.qrcode.utils import QRCodeOptions
 from .forms import CreateQRCodeForm
 from .models import QRGenerator
 from .process_qr_codes import TitleIsNone, TitleIsNotNone
 from django.contrib import messages
 from django.contrib.sites.shortcuts import get_current_site
+from analytics.models import QRAnalytics
 # Create your views here.
 
 
+@login_required(login_url='signin')
 def all_qr_codes(request):
 
     qr_codes = QRGenerator.objects.all()
@@ -21,6 +22,7 @@ def all_qr_codes(request):
     })
 
 
+@login_required(login_url='signin')
 def create_qr_codes(request):
     if request.method == 'POST':
         form = CreateQRCodeForm(request.POST)
@@ -44,6 +46,20 @@ def create_qr_codes(request):
 
 def redirect_qr_codes(request, short_url):
     try:
+        # URLS ANALYTICS CREATION
+        create_analytics = QRAnalytics()
+        create_analytics.id_short_url = short_url
+        create_analytics.is_mobile = request.user_agent.is_mobile
+        create_analytics.is_tablet = request.user_agent.is_tablet
+        create_analytics.is_pc = request.user_agent.is_pc
+        create_analytics.is_touch_capable = request.user_agent.is_touch_capable
+        create_analytics.is_bot = request.user_agent.is_bot
+        create_analytics.browser = request.user_agent.browser.family
+        create_analytics.mobile_system = request.user_agent.os.family
+        create_analytics.device = request.user_agent.device.family
+        create_analytics.save()
+
+        # SAVE THE NUMBER OF SCANS WHEN THE USER SCANS ON THE LINK
         qr_object = QRGenerator.objects.get(
             short_url=short_url)
         qr_object.scans += 1
