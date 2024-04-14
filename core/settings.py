@@ -65,7 +65,6 @@ THIRD_PARTY_APPS = [
     'allauth.socialaccount.providers.google',
     'qr_code',
     'django_user_agents',
-    'geoip2'
 ]
 
 INSTALLED_APPS = DEFAULT_APPS + PROJECT_APPS + THIRD_PARTY_APPS
@@ -225,7 +224,3 @@ PASSWORD_RESET_TIMEOUT = 1440
 
 
 USER_AGENTS_CACHE = 'default'
-
-
-# GEOIP2
-GEOIP_PATH = os.path.join(BASE_DIR / 'geoip')
