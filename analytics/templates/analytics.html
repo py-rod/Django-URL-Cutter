@@ -1,0 +1,28 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/analytics.css' %}" type="text/css">
+{% endblock %}
+{% block title %}URLTrim | Analytics{% endblock %}
+
+
+
+{% block content %}
+{% include 'layouts/header.html' %}
+{% include 'layouts/messages.html' %}
+<main class="main-analytics">
+    <section class="section-1">
+        <h1>The most popular </h1>
+        <div class="container-popular">
+            <div class="popular-link">
+                <h4># 1 Url link</h4>
+                <p>{{click.title}}</p>
+            </div>
+
+            <div class="popular-qr">
+                <h4># 1 QR Code</h4>
+                <p>{{scan.title}}</p>
+            </div>
+        </div>
+</main>
+{% endblock %}
