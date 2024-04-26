@@ -17,11 +17,35 @@
             <div class="popular-link">
                 <h4># 1 Url link</h4>
                 <p>{{click.title}}</p>
+                <a href="{{click.redirect_original_url}}" target="_blank"
+                    class="popular-link-short-url">{{domain}}/{{click.short_url}}</a>
+                <div class="container-other-info">
+                    <div>
+                        <img src="{% static 'icons/click_icon.svg' %}" alt="click icon">
+                        <span>Clicks: {{click.clicks}}</span>
+                    </div>
+                    <div>
+                        <img src="{% static 'icons/calendar_icon.svg' %}" alt="calendar icon">
+                        <span>{{click.created}}</span>
+                    </div>
+                </div>
             </div>
 
             <div class="popular-qr">
                 <h4># 1 QR Code</h4>
                 <p>{{scan.title}}</p>
+                <a href="{{scan.redirect_original_qr_link}}" target="_blank"
+                    class="popular-qr-short-url">{{domain}}/{{scan.short_url}}</a>
+                <div class="container-other-info">
+                    <div>
+                        <img src="{% static 'icons/click_icon.svg' %}" alt="click icon">
+                        <span>Scans: {{scan.scans}}</span>
+                    </div>
+                    <div>
+                        <img src="{% static 'icons/calendar_icon.svg' %}" alt="calendar icon">
+                        <span>{{scan.created}}</span>
+                    </div>
+                </div>
             </div>
         </div>
 </main>
