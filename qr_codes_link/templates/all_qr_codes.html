@@ -18,7 +18,7 @@
             {% for qr_code in qr_codes %}
             <li>
                 {% with dominio=domain %}
-                {% with url_completa=dominio|add:qr_code.short_url %}
+                {% with url_completa=dominio|add:qr_code.short_url|add:pleca %}
                 {% qr_from_text url_completa light_color=qr_code.color_qr dark_color=qr_code.bg_color_qr quiet_zone_color=qr_code.border_color_qr border=qr_code.border_qr image_format='SVG' %}
                 <div class="container-qr-info">
                     <h3 title="{{qr_code.title}}">{{qr_code.title}}</h3>

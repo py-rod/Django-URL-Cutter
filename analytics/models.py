@@ -13,7 +13,7 @@ class UrlAnalytics(models.Model):
     is_touch_capable = models.BooleanField(default=False)
     is_bot = models.BooleanField(default=False)
     browser = models.CharField(max_length=200, default='', blank=True)
-    mobile_system = models.CharField(max_length=100, default='', blank=True)
+    system = models.CharField(max_length=100, default='', blank=True)
     device = models.CharField(max_length=100, default='', blank=True)
     created = models.DateTimeField(auto_created=True, auto_now_add=True)
 
@@ -35,7 +35,7 @@ class QRAnalytics(models.Model):
     is_touch_capable = models.BooleanField(default=False)
     is_bot = models.BooleanField(default=False)
     browser = models.CharField(max_length=200, default='', blank=True)
-    mobile_system = models.CharField(max_length=100, default='', blank=True)
+    system = models.CharField(max_length=100, default='', blank=True)
     device = models.CharField(max_length=100, default='', blank=True)
     created = models.DateTimeField(auto_created=True, auto_now_add=True)
 

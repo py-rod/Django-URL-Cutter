@@ -50,7 +50,7 @@ class TitleIsNotNone:
                     create_new_qr.save()
 
                     messages.success(
-                        self.request, 'The url short has been created')
+                        self.request, 'The QR Code has been created')
                     return redirect('dashboard')
                 else:
                     create_new_qr = QRGenerator()
@@ -69,7 +69,7 @@ class TitleIsNotNone:
                     create_new_qr.save()
 
                     messages.success(
-                        self.request, 'The url short has been created')
+                        self.request, 'The QR Code has been created')
                     return redirect('dashboard')
 
             if bool(short_url_form) and self.check_short_url_link(short_url_form) == False and self.check_short_url_qr(short_url_form) == False:
@@ -86,7 +86,7 @@ class TitleIsNotNone:
                 create_new_qr.save()
 
                 messages.success(
-                    self.request, 'The url short has been created')
+                    self.request, 'The QR Code has been created')
                 return redirect('dashboard')
 
         except:
@@ -148,7 +148,7 @@ class TitleIsNone:
                     create_new_qr.save()
 
                     messages.success(
-                        self.request, 'The url short has been created')
+                        self.request, 'The QR Code has been created')
                     return redirect('dashboard')
                 else:
                     create_new_qr = QRGenerator()
@@ -167,7 +167,7 @@ class TitleIsNone:
                     create_new_qr.save()
 
                     messages.success(
-                        self.request, 'The url short has been created')
+                        self.request, 'The QR Code has been created')
                     return redirect('dashboard')
 
             if bool(short_url_form) and self.check_short_url_link(short_url_form) == False and self.check_short_url_qr(short_url_form) == False:
@@ -183,7 +183,7 @@ class TitleIsNone:
                 create_new_qr.type_app = 'qr'
                 create_new_qr.save()
                 messages.success(
-                    self.request, 'The url short has been created')
+                    self.request, 'The QR Code has been created')
                 return redirect('dashboard')
 
         except:

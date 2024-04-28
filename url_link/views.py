@@ -63,7 +63,7 @@ def redirect_urls(request, short_url):
         create_analytics.is_touch_capable = request.user_agent.is_touch_capable
         create_analytics.is_bot = request.user_agent.is_bot
         create_analytics.browser = request.user_agent.browser.family
-        create_analytics.mobile_system = request.user_agent.os.family
+        create_analytics.system = request.user_agent.os.family
         create_analytics.device = request.user_agent.device.family
         create_analytics.save()
 
