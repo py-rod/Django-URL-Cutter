@@ -41,7 +41,8 @@ def create_url_link(request):
     else:
         form = CreateUrlShort()
     return render(request, 'create_url.html', {
-        'form': form
+        'form': form,
+        'type': 'create'
     })
 
 
@@ -70,6 +71,25 @@ def redirect_urls(request, short_url):
         return redirect(url_obje.original_url)
     except SaveUrlShortened.DoesNotExist:
         return HttpResponse('The short url does not exist')
+
+
+def edit_url(request, slug):
+    url = SaveUrlShortened.objects.filter(short_url=slug).first()
+    if request.method == 'POST':
+        form = CreateUrlShort(request.POST, instance=url)
+        if form.is_valid() and len(form.cleaned_data['short_url']) > 0:
+            form.save()
+            messages.success(request, 'Successfully modified')
+            return redirect('all_url_links')
+        else:
+            messages.error(request, 'error')
+    else:
+        form = CreateUrlShort(instance=url)
+    return render(request, 'create_url.html', {
+        'type': 'edit',
+        'form': form,
+        'url_params': url
+    })
 
 
 def delete_url(request, id):

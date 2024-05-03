@@ -11,6 +11,7 @@
 <main class="main-create-url">
     {% include 'layouts/messages.html' %}
     <section class="section-1">
+        {% if type == 'create' %}
         <h1>Create new</h1>
         <form action="{% url 'create_url' %}" method="POST" class="form-create-url">
             {% csrf_token %}
@@ -40,6 +41,40 @@
             </div>
             <button type="submit" class="btn-create-link">Create</button>
         </form>
+        {% else %}
+        <h1>Edit link</h1>
+        <form action="{% url 'edit_url' url_params.short_url %}" method="POST" class="form-create-url"
+            enctype="multipart/form-data">
+            {% csrf_token %}
+            <div>
+                <div class="container-text-create">
+                    <label for="original_url" class="label-original-url">Destination</label>
+                    <script src="{% static 'js/create_url_hiddent.js' %}"></script>
+                    <p class="text-enter-create">Hit <span>ENTER</span> to quick create</p>
+                </div>
+                <input type="text" name="original_url" id="id_original_url" maxlength="800" required
+                    placeholder="https://example.com/my-long-url" class="url-origin" value="{{url_params.original_url}}"
+                    readonly>
+            </div>
+            <div>
+                <label for="title">Title(optional)</label>
+                <input type="text" name="title" id="id_title" maxlength="200" value="{{url_params.title}}" autofocus>
+            </div>
+            <div class="container-custom-url-short">
+                <div>
+                    <label for="domain">Domain</label>
+                    <input type="text" value="URLTrim.ly" readonly>
+                </div>
+                <span>/</span>
+                <div>
+                    <label for="short_url"><span>Custom back-half</span> (optional)</label>
+                    <input type="text" name="short_url" id="id_short_url" maxlength="100"
+                        value="{{url_params.short_url}}" required>
+                </div>
+            </div>
+            <button type="submit" class="btn-create-link">Apply changes</button>
+        </form>
+        {% endif %}
     </section>
 </main>
 {% endblock %}
