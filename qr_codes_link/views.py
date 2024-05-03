@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .forms import CreateQRCodeForm
 from .models import QRGenerator
@@ -67,4 +67,11 @@ def redirect_qr_codes(request, short_url):
         qr_object.save()
         return redirect(qr_object.original_url)
     except QRGenerator.DoesNotExist:
-        return HttpResponse('No existe el codigo qr')
+        return HttpResponse('The QR code does not exist')
+
+
+def delete_qr(request, id):
+    qr_instance = get_object_or_404(QRGenerator, id=id)
+    qr_instance.delete()
+    messages.success(request, 'The QR code has been deleted')
+    return redirect('all_qr_codes')

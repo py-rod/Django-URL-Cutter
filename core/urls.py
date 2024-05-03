@@ -28,6 +28,10 @@ urlpatterns = [
     path('', include("qr_codes_link.urls")),
     path('analytics/', include('analytics.urls')),
     path('accounts/', include('allauth.urls')),
+    path('', include('qr_code.urls', namespace='qr_code')),
+
 
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+SERVE_QR_CODE_IMAGE_PATH = 'qr-code-image/'

@@ -31,7 +31,7 @@ class SaveUrlShortened(models.Model):
         db_table = 'urls_shorts'
 
     def __str__(self):
-        return 'The url short has been created'
+        return f'{self.pk}, {self.title}, {self.short_url}'
 
     def redirect_original_url(self):
         return reverse('redirect_urls', args=[self.short_url])

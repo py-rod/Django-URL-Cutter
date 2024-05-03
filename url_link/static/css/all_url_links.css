@@ -2,6 +2,10 @@ body {
     background-color: var(--bg-color-1);
 }
 
+.main-all-links {
+    position: relative;
+}
+
 .section-1 {
     padding: 40px 0;
 }
@@ -33,6 +37,9 @@ body {
     background-color: white;
 }
 
+.container-text-links {
+    width: 100%;
+}
 
 .container-list-links>li>img {
     width: 40px;
@@ -42,8 +49,16 @@ body {
     margin-right: 20px;
 }
 
+/* TITULO DE VIDEO */
 
-.container-text-links>h3 {
+.container-title {
+    display: flex;
+    align-items: start;
+    justify-content: space-between;
+}
+
+
+.container-title>h3 {
     margin: 0;
     padding: 0;
     font-size: 1.3rem;
@@ -53,6 +68,81 @@ body {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+
+/* DROPDOWN CREATE  */
+.dropdown-link-options {
+    position: relative;
+    display: inline-block;
+    user-select: none;
+}
+
+.dropdown-content-link-options {
+    display: none;
+    position: absolute;
+    background-color: white;
+    min-width: 200px;
+    width: 100%;
+    box-shadow: 0px 0px 10px #ebebeb,
+        0px 0px 10px #e4e4e4;
+    z-index: 1;
+    border-radius: 8px;
+    right: 0px;
+}
+
+.dropdown-content-link-options a {
+    color: var(--text-100);
+    padding: 15px 16px;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    font-family: var(--dm-sans);
+    transition: background-color .2s;
+}
+
+.dropdown-content-link-options a:hover {
+    background-color: var(--text-100);
+    color: white;
+}
+
+.dropdown-content-link-options a:first-child {
+    border-radius: 8px 8px 0 0;
+}
+
+.dropdown-content-link-options a:last-child {
+    border-radius: 0 0 8px 8px;
+}
+
+.dropdown-content-link-options>a>img {
+    width: 20px;
+}
+
+.dropdown-link-options.open .dropdown-content-link-options {
+    display: block;
+    margin-left: -85px;
+    margin-top: 10px;
+}
+
+.dropbtn-link-options {
+    display: block;
+    width: fit-content;
+    border-radius: 50%;
+    border: none;
+    margin: 0;
+    background-color: inherit;
+}
+
+.dropbtn-link-options {
+    display: block;
+    width: fit-content;
+    border-radius: 50%;
+    border: none;
+    margin: 0;
+    background-color: inherit;
+}
+
+
 
 .container-text-links>a {
     display: block;

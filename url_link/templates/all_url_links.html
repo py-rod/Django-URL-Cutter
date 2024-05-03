@@ -8,7 +8,7 @@
 {% block content %}
 {% include 'layouts/header.html' %}
 <main class="main-all-links">
-
+    {% include 'layouts/messages.html' %}
     <section class="section-1">
         <div class="container-filters">
             <h1>Links</h1>
@@ -19,20 +19,39 @@
             <li>
                 <img src="{{data_url.icon}}" alt="Icon site">
                 <div class="container-text-links">
-                    <h3>{{data_url.title}}</h4>
-                        <a href="{{data_url.redirect_original_url}}"
-                            target="_blank">{{domain}}/{{data_url.short_url}}</a>
-                        <a href="{{data_url.original_url}}">{{data_url.original_url}}</a>
-                        <div class="content-analytic-data">
-                            <div class="div-click">
-                                <img src="{% static 'icons/click_icon.svg' %}" alt="click-icon">
-                                <span>Clicks: {{data_url.clicks}}</span>
+                    <div class="container-title">
+                        <h3>{{data_url.title}}</h3>
+                        <div class="dropdown-link-options" onclick="toggleDropdownOptions('{{forloop.counter}}')">
+                            <button class="dropbtn-link-options">
+                                <img src="{% static 'icons/options_icon.svg' %}" alt="Options_icon">
+                            </button>
+                            <div class="dropdown-content-link-options" id="myDropdown-link-options{{forloop.counter}}">
+                                <a href="{% url 'create_new_qr_codes' %}">
+                                    <img src="{% static 'icons/edit_icon.svg' %}" alt="qr-icon">
+                                    Edit
+                                </a>
+                                <a href="{% url 'delete_url' data_url.id %}">
+                                    <img src="{% static 'icons/delete_icon.svg' %}" alt="qr-icon">
+                                    Delete
+                                </a>
                             </div>
-                            <div class="div-date">
-                                <img src="{% static 'icons/calendar_icon.svg' %}" alt="calendar-icon">
-                                <span>{{data_url.created}}</span>
-                            </div>
+                            <script src="{% static 'js/dropdown_link_options.js' %}"></script>
+
                         </div>
+                    </div>
+
+                    <a href="{{data_url.redirect_original_url}}" target="_blank">{{domain}}/{{data_url.short_url}}</a>
+                    <a href="{{data_url.original_url}}">{{data_url.original_url}}</a>
+                    <div class="content-analytic-data">
+                        <div class="div-click">
+                            <img src="{% static 'icons/click_icon.svg' %}" alt="click-icon">
+                            <span>Clicks: {{data_url.clicks}}</span>
+                        </div>
+                        <div class="div-date">
+                            <img src="{% static 'icons/calendar_icon.svg' %}" alt="calendar-icon">
+                            <span>{{data_url.created}}</span>
+                        </div>
+                    </div>
                 </div>
             </li>
             {% endfor %}

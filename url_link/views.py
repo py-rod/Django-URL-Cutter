@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect, HttpResponse
+from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import SaveUrlShortened
 from django.contrib.sites.shortcuts import get_current_site
@@ -69,4 +69,12 @@ def redirect_urls(request, short_url):
 
         return redirect(url_obje.original_url)
     except SaveUrlShortened.DoesNotExist:
-        return HttpResponse('No existe la url acortada')
+        return HttpResponse('The short url does not exist')
+
+
+def delete_url(request, id):
+    url_instance = get_object_or_404(SaveUrlShortened, id=id)
+    print(url_instance)
+    url_instance.delete()
+    messages.success(request, 'The short url has been deleted')
+    return redirect('all_url_links')

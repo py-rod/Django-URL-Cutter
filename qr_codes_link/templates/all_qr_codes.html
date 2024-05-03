@@ -9,7 +9,8 @@
 
 {% block content %}
 {% include 'layouts/header.html' %}
-<main>
+<main class="main-all-qr-codes">
+    {% include 'layouts/messages.html' %}
     <section class="section-1">
         <h1>QR Codes</h1>
 
@@ -19,9 +20,37 @@
             <li>
                 {% with dominio=domain %}
                 {% with url_completa=dominio|add:qr_code.short_url|add:pleca %}
-                {% qr_from_text url_completa light_color=qr_code.color_qr dark_color=qr_code.bg_color_qr quiet_zone_color=qr_code.border_color_qr border=qr_code.border_qr image_format='SVG' %}
+                <img src="{% qr_url_from_text url_completa  light_color=qr_code.color_qr dark_color=qr_code.bg_color_qr quiet_zone_color=qr_code.border_color_qr border=qr_code.border_qr image_format='svg' size='L' %}"
+                    alt="QR image" id="download_qr_image">
+
                 <div class="container-qr-info">
-                    <h3 title="{{qr_code.title}}">{{qr_code.title}}</h3>
+                    <div class="container-title">
+                        <h3 title="{{qr_code.title}}">{{qr_code.title}}</h3>
+
+                        <div class="dropdown-qr-options" onclick="toggleDropdownOptions('{{forloop.counter}}')">
+                            <button class="dropbtn-qr-options">
+                                <img src="{% static 'icons/options_icon.svg' %}" alt="Options_icon">
+                            </button>
+                            <div class="dropdown-content-qr-options" id="myDropdown-qr-options{{forloop.counter}}">
+                                <a href="{% qr_url_from_text url_completa light_color=qr_code.color_qr dark_color=qr_code.bg_color_qr quiet_zone_color=qr_code.border_color_qr border=qr_code.border_qr image_format='png' size='L' %}"
+                                    class="download_qr_link" download="qr_image.png">
+                                    <img src=" {% static 'icons/download_icon.svg' %}" alt="download-icon">
+                                    Download
+                                </a>
+                                <a href="{% url 'create_new_qr_codes' %}">
+                                    <img src="{% static 'icons/edit_icon.svg' %}" alt="qr-icon">
+                                    Edit
+                                </a>
+                                <a href="{% url 'delete_qr' qr_code.id %}">
+                                    <img src="{% static 'icons/delete_icon.svg' %}" alt="qr-icon">
+                                    Delete
+                                </a>
+                            </div>
+                            <script src="{% static 'js/dropdown_qr_options.js' %}"></script>
+
+                        </div>
+
+                    </div>
                     <p>Website</p>
                     <div class="container-original-url">
                         <img src="{% static 'icons/arrow_right.svg' %}" alt="arrow">
@@ -43,8 +72,12 @@
             </li>
             {% endfor %}
         </ul>
-    </section>
 
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.5/FileSaver.js"
+            integrity="sha512-B+gr+zLWg81qxVwvtYwKrmjvQtZKD/GGFF7jD80OfzbqFw+NsbS5faEqpCO7Q7oRw1bYi0+WLJf54j8Vm7NADw=="
+            crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+
+    </section>
 
 </main>
 {% endblock %}
