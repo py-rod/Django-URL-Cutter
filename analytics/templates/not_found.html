@@ -1,0 +1,20 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/not_found.css' %}" type="text/css">
+{% endblock %}
+{% block title %}URLTrim | Not Found{% endblock %}
+
+
+
+{% block content %}
+{% include 'layouts/header.html' %}
+<main class="main-not-found">
+    <section class="section-1">
+        <figure class="figure">
+            <img src="{% static 'images/not_found.svg' %}" alt="Not found image">
+            <figcaption>Nothing to show</figcaption>
+        </figure>
+    </section>
+</main>
+{% endblock %}

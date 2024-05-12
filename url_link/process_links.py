@@ -1,11 +1,26 @@
 from django.contrib import messages
-from .models import SaveUrlShortened
+from .models import ModelUrl
 import requests
 from bs4 import BeautifulSoup
 from django.shortcuts import render, redirect
-from qr_codes_link.models import QRGenerator
+from qr_codes_link.models import ModelQR
 import random
 import string
+
+
+def check_short_url_qr(short_url):
+    return ModelQR.objects.filter(short_url=short_url).exists()
+
+
+def check_short_url_link(short_url):
+    return ModelUrl.objects.filter(short_url=short_url).exists()
+
+
+def generate_short_url():
+    random_digits_for_ur = ''.join(random.choices(
+        f'{string.ascii_lowercase}{string.ascii_uppercase}{string.digits}', k=8))
+
+    return f'{random_digits_for_ur}'
 
 
 # ESTA CLASE SIRVE PARA GUARDAR LA URL CUANDO EL TITULO ESTA PERSONALIZADO, OSEA NO ESTA VACIO
@@ -33,18 +48,6 @@ class TitleIsNotNone:
         except:
             return '../media/default/icon_broken.webp'
 
-    def check_short_url_qr(self, short_url):
-        return QRGenerator.objects.filter(short_url=short_url).exists()
-
-    def check_short_url_link(self, short_url):
-        return SaveUrlShortened.objects.filter(short_url=short_url).exists()
-
-    def generate_short_url(self):
-        random_digits_for_ur = ''.join(random.choices(
-            f'{string.ascii_lowercase}{string.ascii_uppercase}{string.digits}', k=8))
-
-        return f'{random_digits_for_ur}'
-
     def save_when_title_is_not_none(self):
         try:
             # SHORT URL DEL FORM
@@ -53,10 +56,11 @@ class TitleIsNotNone:
             # CONDICION SI EL SHORT URL VIENE VACIO
             if bool(short_url_form) == False:
 
-                new_short_url = self.generate_short_url()
+                new_short_url = generate_short_url()
 
-                if self.check_short_url_link(new_short_url) == False and self.check_short_url_qr(new_short_url) == False:
-                    create_new_url = SaveUrlShortened()
+                if check_short_url_link(new_short_url) == False and check_short_url_qr(new_short_url) == False:
+
+                    create_new_url = ModelUrl()
                     create_new_url.user = self.request.user.email
                     create_new_url.original_url = self.form.cleaned_data['original_url']
                     create_new_url.title = self.form.cleaned_data['title']
@@ -69,13 +73,14 @@ class TitleIsNotNone:
                         self.request, 'The url short has been created')
                     return redirect('dashboard')
 
-                else:
-                    create_new_url = SaveUrlShortened()
+                elif check_short_url_link(new_short_url) or check_short_url_qr(new_short_url):
+
+                    create_new_url = ModelUrl()
                     create_new_url.user = self.request.user.email
                     create_new_url.original_url = self.form.cleaned_data['original_url']
                     create_new_url.title = self.form.cleaned_data['title']
-                    while self.check_short_url_link(new_short_url) or self.check_short_url_qr(new_short_url):
-                        create_new_url.short_url = self.generate_short_url()
+                    while check_short_url_link(new_short_url) or check_short_url_qr(new_short_url):
+                        create_new_url.short_url = generate_short_url()
                     create_new_url.icon = self.getting_icon_site()
                     create_new_url.type_app = 'url'
                     create_new_url.save()
@@ -84,22 +89,28 @@ class TitleIsNotNone:
                         self.request, 'The url short has been created')
                     return redirect('dashboard')
 
-            if bool(short_url_form) and self.check_short_url_link(short_url_form) == False and self.check_short_url_qr(short_url_form) == False:
-                create_new_url = SaveUrlShortened()
-                create_new_url.user = self.request.user.email
-                create_new_url.original_url = self.form.cleaned_data['original_url']
-                create_new_url.title = self.form.cleaned_data['title']
-                create_new_url.short_url = short_url_form
-                create_new_url.icon = self.getting_icon_site()
-                create_new_url.type_app = 'url'
-                create_new_url.save()
+            if bool(short_url_form):
 
-                messages.success(
-                    self.request, 'The url short has been created')
-                return redirect('dashboard')
+                if check_short_url_link(short_url_form) == False and check_short_url_qr(short_url_form) == False:
+                    create_new_url = ModelUrl()
+                    create_new_url.user = self.request.user.email
+                    create_new_url.original_url = self.form.cleaned_data['original_url']
+                    create_new_url.title = self.form.cleaned_data['title']
+                    create_new_url.short_url = short_url_form
+                    create_new_url.icon = self.getting_icon_site()
+                    create_new_url.type_app = 'url'
+                    create_new_url.save()
 
-            messages.error(
-                self.request, 'Verify if you have copied correctly the url you want to shorten')
+                    messages.success(
+                        self.request, 'The url short has been created')
+                    return redirect('dashboard')
+
+            if bool(short_url_form):
+
+                if check_short_url_qr(short_url_form) or check_short_url_qr(short_url_form):
+                    messages.error(
+                        self.requests, 'This custom back-half is already exists. Try another one')
+                    return redirect('create_url')
 
         except:
             messages.error(
@@ -107,7 +118,7 @@ class TitleIsNotNone:
             return redirect('create_url')
 
 
-# ESTA CLASE SIRVE PARA GUARDAR LA URL CUANDO EL TITULO NO ESTA VACIO Y ESTA PERSONALIZADO
+# ESTA CLASE SIRVE PARA GUARDAR LA URL CUANDO EL TITULO ESTA VACIO
 class TitleIsNone:
     def __init__(self, request, form) -> None:
         self.request = request
@@ -143,18 +154,6 @@ class TitleIsNone:
         except:
             return None
 
-    def check_short_url_qr(self, short_url):
-        return QRGenerator.objects.filter(short_url=short_url).exists()
-
-    def check_short_url_link(self, short_url):
-        return SaveUrlShortened.objects.filter(short_url=short_url).exists()
-
-    def generate_short_url(self):
-        random_digits_for_ur = ''.join(random.choices(
-            f'{string.ascii_lowercase}{string.ascii_uppercase}{string.digits}', k=8))
-
-        return f'{random_digits_for_ur}'
-
     def save_when_title_is_none(self):
 
         try:
@@ -164,10 +163,11 @@ class TitleIsNone:
             # CONDICION SI EL SHORT URL VIENE VACIO
             if bool(short_url_form) == False:
                 # SHORT URL GENERADO DE MANERA ALEATORIA
-                new_short_url = self.generate_short_url()
+                new_short_url = generate_short_url()
 
-                if self.check_short_url_link(new_short_url) == False and self.check_short_url_qr(new_short_url) == False:
-                    create_new_url = SaveUrlShortened()
+                if check_short_url_link(new_short_url) == False and check_short_url_qr(new_short_url) == False:
+
+                    create_new_url = ModelUrl()
                     create_new_url.user = self.request.user.email
                     create_new_url.original_url = self.form.cleaned_data['original_url']
                     create_new_url.title = self.getting_title_window()
@@ -180,36 +180,40 @@ class TitleIsNone:
                         self.request, 'The url short has been created')
                     return redirect('dashboard')
 
-                else:
-                    create_new_url = SaveUrlShortened()
+                elif check_short_url_link(new_short_url) or check_short_url_qr(new_short_url):
+
+                    create_new_url = ModelUrl()
                     create_new_url.user = self.request.user.email
                     create_new_url.original_url = self.form.cleaned_data['original_url']
                     create_new_url.title = self.getting_title_window()
-                    while self.check_short_url_link(new_short_url) or self.check_short_url_qr(new_short_url):
-                        create_new_url.short_url = self.generate_short_url()
+                    while check_short_url_link(new_short_url) or check_short_url_qr(new_short_url):
+                        create_new_url.short_url = generate_short_url()
                     create_new_url.icon = self.getting_icon_site()
                     create_new_url.save()
                     messages.success(
                         self.request, 'The url short has been created')
                     return redirect('dashboard')
 
-            if bool(short_url_form) and self.check_short_url_link(short_url_form) == False and self.check_short_url_qr(short_url_form) == False:
-                create_new_url = SaveUrlShortened()
-                create_new_url.user = self.request.user.email
-                create_new_url.original_url = self.form.cleaned_data['original_url']
-                create_new_url.title = self.getting_title_window()
-                create_new_url.short_url = short_url_form
-                create_new_url.icon = self.getting_icon_site()
-                create_new_url.type_app = 'url'
-                create_new_url.save()
+            if bool(short_url_form):
 
-                messages.success(
-                    self.request, 'The url short has been created')
-                return redirect('dashboard')
+                if check_short_url_link(short_url_form) == False and check_short_url_qr(short_url_form) == False:
+                    create_new_url = ModelUrl()
+                    create_new_url.user = self.request.user.email
+                    create_new_url.original_url = self.form.cleaned_data['original_url']
+                    create_new_url.title = self.getting_title_window()
+                    create_new_url.short_url = short_url_form
+                    create_new_url.icon = self.getting_icon_site()
+                    create_new_url.type_app = 'url'
+                    create_new_url.save()
 
-            messages.error(
-                self.request, 'Verify if you have copied correctly the url you want to shorten')
-            return redirect('create_url')
+                    messages.success(
+                        self.request, 'The url short has been created')
+                    return redirect('dashboard')
+
+                else:
+                    messages.error(
+                        self.requests, 'This custom back-half is already exists. Try another one')
+                    return redirect('create_url')
 
         except:
             messages.error(

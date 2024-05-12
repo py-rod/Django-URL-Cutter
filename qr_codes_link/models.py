@@ -5,7 +5,7 @@ from django.urls import reverse
 # Create your models here.
 
 
-class QRGenerator(models.Model):
+class ModelQR(models.Model):
 
     def generate_short_url(self):
         random_digits_for_ur = ''.join(random.choices(
@@ -37,12 +37,12 @@ class QRGenerator(models.Model):
         if not self.short_url:
             new_url_short = self.generate_short_url()
 
-            if QRGenerator.objects.filter(short_url=new_url_short).exists() == False:
+            if ModelQR.objects.filter(short_url=new_url_short).exists() == False:
                 self.short_url = new_url_short
                 super().save(*args, **kwargs)
 
             else:
-                while QRGenerator.objects.filter(short_url=self.short_url).exists():
+                while ModelQR.objects.filter(short_url=self.short_url).exists():
                     self.short_url = self.generate_short_url()
                 super().save(*args, **kwargs)
 

@@ -3,11 +3,11 @@ from django.urls import reverse
 import random
 import string
 from datetime import datetime
-from qr_codes_link.models import QRGenerator
+from qr_codes_link.models import ModelQR
 # Create your models here.
 
 
-class SaveUrlShortened(models.Model):
+class ModelUrl(models.Model):
 
     def generate_short_url(self):
         random_digits_for_ur = ''.join(random.choices(

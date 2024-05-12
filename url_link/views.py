@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, HttpResponse, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from .models import SaveUrlShortened
+from .models import ModelUrl
 from django.contrib.sites.shortcuts import get_current_site
 from django.contrib import messages
 from .forms import CreateUrlShort
@@ -12,7 +12,7 @@ from analytics.models import UrlAnalytics
 @login_required(login_url='signin')
 def all_url_links(request):
 
-    urls_obj = SaveUrlShortened.objects.filter(
+    urls_obj = ModelUrl.objects.filter(
         user=request.user.email, is_active=True)
     domain = get_current_site(request).domain
 
@@ -50,7 +50,7 @@ def redirect_urls(request, short_url):
     try:
 
         # SAVE THE NUMBER OF CLICKS WHEN THE USER CLICKS ON THE LINK
-        url_obje = SaveUrlShortened.objects.get(short_url=short_url)
+        url_obje = ModelUrl.objects.get(short_url=short_url)
         url_obje.clicks += 1
         url_obje.save()
 
@@ -69,12 +69,12 @@ def redirect_urls(request, short_url):
         create_analytics.save()
 
         return redirect(url_obje.original_url)
-    except SaveUrlShortened.DoesNotExist:
+    except ModelUrl.DoesNotExist:
         return HttpResponse('The short url does not exist')
 
 
 def edit_url(request, slug):
-    url = SaveUrlShortened.objects.filter(short_url=slug).first()
+    url = ModelUrl.objects.filter(short_url=slug).first()
     if request.method == 'POST':
         form = CreateUrlShort(request.POST, instance=url)
         if form.is_valid() and len(form.cleaned_data['short_url']) > 0:
@@ -92,9 +92,17 @@ def edit_url(request, slug):
     })
 
 
-def delete_url(request, id):
-    url_instance = get_object_or_404(SaveUrlShortened, id=id)
-    print(url_instance)
-    url_instance.delete()
+def delete_url(request, short_url):
+    url_instance = get_object_or_404(ModelUrl, short_url=short_url)
+    check_is_exists_url_analytic = UrlAnalytics.objects.filter(
+        id_short_url=short_url).exists()
+    if check_is_exists_url_analytic:
+        url_analytics_instance = get_object_or_404(
+            UrlAnalytics, id_short_url=short_url)
+        url_analytics_instance.delete()
+        url_instance.delete()
+    else:
+        url_instance.delete()
+
     messages.success(request, 'The short url has been deleted')
     return redirect('all_url_links')

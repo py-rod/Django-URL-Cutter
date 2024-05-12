@@ -8,5 +8,5 @@ urlpatterns = [
          views.all_url_links, name='all_url_links'),
     path('<slug:short_url>', views.redirect_urls, name='redirect_urls'),
     path('url/edit/<slug:slug>/', views.edit_url, name='edit_url'),
-    path('url/delete/<int:id>/', views.delete_url, name='delete_url'),
+    path('url/delete/<slug:short_url>/', views.delete_url, name='delete_url'),
 ]

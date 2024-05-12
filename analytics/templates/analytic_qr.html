@@ -1,0 +1,109 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/analytic_qr.css' %}" type="text/css">
+{% endblock %}
+{% block title %}URLTrim | Analytics | QR{% endblock %}
+
+{% block content %}
+{% include 'layouts/header.html' %}
+<main class="main-analytics">
+    <section class="section-1">
+        <h1>The most popular </h1>
+        <div class="container-popular">
+            <div class="popular-qr">
+                <h4># 1 QR Code</h4>
+                <p>{{scan.title}}</p>
+                <a href="{{scan.redirect_original_qr_link}}" target="_blank"
+                    class="popular-qr-short-url">{{domain}}/{{scan.short_url}}</a>
+                <div class="container-other-info">
+                    <div>
+                        <img src="{% static 'icons/click_icon.svg' %}" alt="click icon">
+                        <span>Scans: {{scan.scans}}</span>
+                    </div>
+                    <div>
+                        <img src="{% static 'icons/calendar_icon.svg' %}" alt="calendar icon">
+                        <span>{{scan.created}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="section-2">
+        <h1>Devices</h1>
+        <div class="container-devices">
+            <div class="container-smartphones">
+                <h4>SmartPhone</h4>
+                <div>
+                    <img src="{% static 'icons/smartphone_icon.svg' %}" alt="SmartPhone icon">
+                    <div>
+                        <span>QR: {{qr_mobile}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="container-smartphones">
+                <h4>Tablet</h4>
+                <div>
+                    <img src="{% static 'icons/tablet_icon.svg' %}" alt="SmartPhone icon">
+                    <div>
+                        <span>QR: {{qr_tablet}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="container-smartphones">
+                <h4>PC</h4>
+                <div>
+                    <img src="{% static 'icons/pc_icon.svg' %}" alt="SmartPhone icon">
+                    <div>
+                        <span>QR: {{qr_pc}}</span>
+                    </div>
+                </div>
+            </div>
+            <div class="container-smartphones">
+                <h4>Others</h4>
+                <div>
+                    <img src="{% static 'icons/exclamation_icon.svg' %}" alt="SmartPhone icon">
+                    <div>
+                        <span>QR: {{qr_other}}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section-3">
+        <h1>Popular system</h1>
+        <div class="container-popular-system">
+            <div class='qr-popular-system'>
+                <h4># 1 QR Code</h4>
+                {% if qr_popular_system == 'Windows' %}
+                <div>
+                    <img src="{% static 'icons/windows_icon.svg' %}" alt="windows_icon">
+                    <p>{{qr_popular_system}}</p>
+                </div>
+                {% elif qr_popular_system == 'macOS'  or qr_popular_system == 'OS X' %}
+                <div>
+                    <img src="{% static 'icons/macos_icon.svg' %}" alt="windows_icon">
+                    <p>{{qr_popular_system}}</p>
+                </div>
+                {% elif qr_popular_system == 'Linux' %}
+                <div>
+                    <img src="{% static 'icons/linux_icon.svg' %}" alt="windows_icon">
+                    <p>{{qr_popular_system}}</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </section>
+
+    <section class="section-4">
+        <h1>Popular browser</h1>
+        <div class="container-popular-browser">
+            <div class="qr-popular-browser">
+                <h4># 1 QR Code</h4>
+                <p>{{qr_popular_browser}}</p>
+            </div>
+        </div>
+    </section>
+</main>
+{% endblock %}

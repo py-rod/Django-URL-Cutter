@@ -1,8 +1,8 @@
-from .models import SaveUrlShortened
+from .models import ModelUrl
 from django import forms
 
 
 class CreateUrlShort(forms.ModelForm):
     class Meta:
-        model = SaveUrlShortened
+        model = ModelUrl
         fields = ['original_url', 'title', 'short_url']

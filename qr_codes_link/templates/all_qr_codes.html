@@ -41,7 +41,7 @@
                                     <img src="{% static 'icons/edit_icon.svg' %}" alt="qr-icon">
                                     Edit
                                 </a>
-                                <a href="{% url 'delete_qr' qr_code.id %}">
+                                <a href="{% url 'delete_qr' qr_code.short_url %}">
                                     <img src="{% static 'icons/delete_icon.svg' %}" alt="qr-icon">
                                     Delete
                                 </a>

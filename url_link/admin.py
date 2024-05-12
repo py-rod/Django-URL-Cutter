@@ -1,10 +1,10 @@
 from django.contrib import admin
-from .models import SaveUrlShortened
+from .models import ModelUrl
 # Register your models here.
 
 
-@admin.register(SaveUrlShortened)
-class SaveUrlShortenedAdmin(admin.ModelAdmin):
+@admin.register(ModelUrl)
+class ModelUrlAdmin(admin.ModelAdmin):
     list_display = ('id', 'user', 'title', 'short_url',  'created')
     list_display_links = ('id', 'user', 'title', 'short_url')
     list_per_page = 20
