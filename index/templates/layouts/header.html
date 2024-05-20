@@ -17,11 +17,11 @@
                     <div class="container-info-user-menu">
                         <span>{{user.acronym_name}}</span>
                         <div class="container-info-user-names">
-                            <p>{{user.first_name}} {{user.last_name}}</p>
-                            <p>{{user.email}}</p>
+                            <p title="{{user.first_name}} {{user.last_name}}">{{user.first_name}} {{user.last_name}}</p>
+                            <p title="{{user.email}}">{{user.email}}</p>
                         </div>
                     </div>
-                    <a href="#">Profile</a>
+                    <a href="{% url 'settings_view' %}">Settings</a>
                     <a href="{% url 'logout' %}">Logout</a>
                 </div>
                 <script src="{% static 'js/dropdown_menu.js' %}"></script>

@@ -104,14 +104,18 @@
     border-radius: 50%;
     background-color: var(--text-100);
     color: white;
-    padding: 13px;
+    padding: 10px;
     font-weight: 600;
+    text-align: center;
 }
 
 .container-info-user-names>p {
     font-size: 0.9rem;
     margin: 0;
     color: var(--text-color2);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .container-info-user-names>:first-child {
