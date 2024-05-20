@@ -11,16 +11,18 @@ from django.db.models import Count
 
 def analytics(request):
     # URL
-    popular_click = ModelUrl.objects.all().order_by('-clicks').first()
-    url_popular_system = UrlAnalytics.objects.values('system').annotate(
+    popular_click = ModelUrl.objects.filter(
+        user=request.user.email).order_by('-clicks').first()
+    url_popular_system = UrlAnalytics.objects.filter(creator=request.user.email).values('system').annotate(
         total=Count('system')).order_by('-total')
-    url_popular_browser = UrlAnalytics.objects.values('browser').annotate(
+    url_popular_browser = UrlAnalytics.objects.filter(creator=request.user.email).values('browser').annotate(
         total=Count('browser')).order_by('-total')
     # QR
-    popular_qr_code = ModelQR.objects.all().order_by('-scans').first()
-    qr_popular_system = QRAnalytics.objects.values('system').annotate(
+    popular_qr_code = ModelQR.objects.filter(
+        user=request.user.email).order_by('-scans').first()
+    qr_popular_system = QRAnalytics.objects.filter(creator=request.user.email).values('system').annotate(
         total=Count('system')).order_by('-total')
-    qr_popular_browser = QRAnalytics.objects.values('browser').annotate(
+    qr_popular_browser = QRAnalytics.objects.filter(creator=request.user.email).values('browser').annotate(
         total=Count('browser')).order_by('-total')
 
     get_domain = get_current_site(request).domain
@@ -32,16 +34,16 @@ def analytics(request):
             'domain': get_domain,
             'url_popular_system': url_popular_system[0]['system'],
             'url_popular_browser': url_popular_browser[0]['browser'],
-            'url_mobile': url_is_mobile(),
-            'url_pc': url_is_pc(),
-            'url_tablet': url_is_tablet(),
-            'url_other': url_other(),
+            'url_mobile': url_is_mobile(request),
+            'url_pc': url_is_pc(request),
+            'url_tablet': url_is_tablet(request),
+            'url_other': url_other(request),
             'qr_popular_system': qr_popular_system[0]['system'],
             'qr_popular_browser': qr_popular_browser[0]['browser'],
-            'qr_mobile': qr_is_mobile(),
-            'qr_pc': qr_is_pc(),
-            'qr_tablet': qr_is_tablet(),
-            'qr_other': qr_other()
+            'qr_mobile': qr_is_mobile(request),
+            'qr_pc': qr_is_pc(request),
+            'qr_tablet': qr_is_tablet(request),
+            'qr_other': qr_other(request)
         })
 
     if bool(url_popular_system) and bool(qr_popular_system) == False:
@@ -50,10 +52,10 @@ def analytics(request):
             'domain': get_domain,
             'url_popular_system': url_popular_system[0]['system'],
             'url_popular_browser': url_popular_browser[0]['browser'],
-            'url_mobile': url_is_mobile(),
-            'url_pc': url_is_pc(),
-            'url_tablet': url_is_tablet(),
-            'url_other': url_other(),
+            'url_mobile': url_is_mobile(request),
+            'url_pc': url_is_pc(request),
+            'url_tablet': url_is_tablet(request),
+            'url_other': url_other(request),
         })
 
     if bool(qr_popular_system) and bool(url_popular_system) == False:
@@ -62,10 +64,10 @@ def analytics(request):
             'domain': get_domain,
             'qr_popular_system': qr_popular_system[0]['system'],
             'qr_popular_browser': qr_popular_browser[0]['browser'],
-            'qr_mobile': qr_is_mobile(),
-            'qr_pc': qr_is_pc(),
-            'qr_tablet': qr_is_tablet(),
-            'qr_other': qr_other()
+            'qr_mobile': qr_is_mobile(request),
+            'qr_pc': qr_is_pc(request),
+            'qr_tablet': qr_is_tablet(request),
+            'qr_other': qr_other(request)
         })
 
     if bool(url_popular_system) == False and bool(qr_popular_system) == False:
