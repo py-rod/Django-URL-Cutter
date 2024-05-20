@@ -33,28 +33,6 @@ class ModelQR(models.Model):
         verbose_name_plural = 'QR Codes Links'
         db_table = 'qr_code_links'
 
-    def save(self, *args, **kwargs):
-        if not self.short_url:
-            new_url_short = self.generate_short_url()
-
-            if ModelQR.objects.filter(short_url=new_url_short).exists() == False:
-                self.short_url = new_url_short
-                super().save(*args, **kwargs)
-
-            else:
-                while ModelQR.objects.filter(short_url=self.short_url).exists():
-                    self.short_url = self.generate_short_url()
-                super().save(*args, **kwargs)
-
-        else:
-
-            if self.short_url == self.short_url:
-                self.short_url = self.short_url
-                super().save(*args, **kwargs)
-
-                self.short_url = f'{self.short_url}'
-                super().save(*args, **kwargs)
-
     def __str__(self):
         return f'The QR Code {self.title} has been created'
 

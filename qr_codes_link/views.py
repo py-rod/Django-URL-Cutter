@@ -13,7 +13,8 @@ from url_link.models import ModelUrl
 @login_required(login_url='signin')
 def all_qr_codes(request):
 
-    qr_codes = ModelQR.objects.all()
+    qr_codes = ModelQR.objects.filter(
+        user=request.user.email, is_active=True)
 
     domain = get_current_site(request).domain
 
@@ -48,9 +49,17 @@ def create_qr_codes(request):
 
 def redirect_qr_codes(request, short_url):
     try:
+
+        # SAVE THE NUMBER OF SCANS WHEN THE USER SCANS ON THE LINK
+        qr_object = ModelQR.objects.get(
+            short_url=short_url)
+        qr_object.scans += 1
+        qr_object.save()
+
         # URLS ANALYTICS CREATION
         create_analytics = QRAnalytics()
         create_analytics.id_short_url = short_url
+        create_analytics.creator = qr_object.user
         create_analytics.is_mobile = request.user_agent.is_mobile
         create_analytics.is_tablet = request.user_agent.is_tablet
         create_analytics.is_pc = request.user_agent.is_pc
@@ -61,16 +70,12 @@ def redirect_qr_codes(request, short_url):
         create_analytics.device = request.user_agent.device.family
         create_analytics.save()
 
-        # SAVE THE NUMBER OF SCANS WHEN THE USER SCANS ON THE LINK
-        qr_object = ModelQR.objects.get(
-            short_url=short_url)
-        qr_object.scans += 1
-        qr_object.save()
         return redirect(qr_object.original_url)
     except ModelQR.DoesNotExist:
         return HttpResponse('The QR code does not exist')
 
 
+@login_required(login_url='signin')
 def delete_qr(request, short_url):
     qr_instance = get_object_or_404(ModelQR, short_url=short_url)
     check_is_exists_url_analytic = QRAnalytics.objects.filter(
