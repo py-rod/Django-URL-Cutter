@@ -1,0 +1,45 @@
+{% extends 'layouts/base.html' %}
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/settings_account.css' %}" type="text/css">
+{% endblock %}
+{% block title %}URLTrim | Settings{% endblock %}
+
+
+{% block content %}
+{% include 'layouts/header.html' %}
+<main class="main-settings">
+    {% include 'layouts/messages.html' %}
+    <section class="section-1">
+        <h1>Profile</h1>
+        <h2>Preferences</h2>
+        <form action="" method="POST" enctype="multipart/form-data" class="form_display_name">
+            {% csrf_token %}
+            <label>Display name</label>
+            <input type="hidden" name="display_name_form" value="display_name_form">
+            <input type="text" name="first_name" id="id_first_name" value="{{form_display_name.instance.first_name}}">
+            <input type="text" name="last_name" id="id_last_name" value="{{form_display_name.instance.last_name}}">
+            <button type="submit" class="btn-update-display-name">Update display name</button>
+        </form>
+    </section>
+
+    <section class="section-2">
+        <h1>Security & authentication</h1>
+        <div>
+            <h2>Change password</h2>
+            <p>You will be required to login after changing your password</p>
+        </div>
+        <form action="" method="POST" enctype="multipart/form-data" class="form_change_password">
+            {% csrf_token %}
+            <input type="hidden" name="change_password_form" value="change_password_form">
+            <input type="password" name="new_password1" id="id_new_password1" placeholder="New password">
+            <input type="password" name="new_password2" id="id_new_password2" placeholder="Confirm new password">
+            <button type="submit" class="btn-change-password">Update display name</button>
+        </form>
+    </section>
+
+    <section class="section-3">
+        <a href="{% url 'delete_account' %}" class="btn-delete-account">Delete account</a>
+    </section>
+</main>
+{% endblock %}

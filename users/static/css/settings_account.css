@@ -1,0 +1,156 @@
+body {
+    background-color: var(--bg-color-1);
+}
+
+.main-settings {
+    position: relative;
+}
+
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus {
+    -webkit-box-shadow: 0 0 0px 1000px #fff inset;
+}
+
+.section-1 {
+    padding: 50px 0;
+}
+
+
+.section-1>h1 {
+    width: fit-content;
+    color: var(--text-color2);
+    font-family: var(--dm-sans);
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 20px 0;
+    border-bottom: 2px solid var(--text-100);
+}
+
+
+.section-1>h2 {
+    color: var(--text-color2);
+    font-family: var(--dm-sans);
+    font-size: 1.6rem;
+    font-weight: 600;
+    margin: 20px 0;
+}
+
+
+/* FORM DISPLAY NAME*/
+
+.form_display_name>label {
+    display: block;
+    margin-bottom: 20px;
+    color: var(--text-color2);
+    font-family: var(--dm-sans);
+    font-weight: 700;
+    font-size: 1.1rem;
+}
+
+
+
+.btn-update-display-name {
+    display: block;
+    max-width: 400px;
+    margin-top: 30px;
+    padding: 15px 30px;
+    font-size: 1rem;
+    font-family: var(--dm-sans);
+    border: none;
+    background-color: var(--text-color1);
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+
+/* FORM CHANGE PASSWORD */
+
+
+.section-2 {
+    padding: 50px 0 80px;
+}
+
+.section-2>h1 {
+    color: var(--text-color2);
+    font-family: var(--dm-sans);
+    font-size: 2rem;
+    font-weight: 700;
+    margin: 20px 0;
+    width: fit-content;
+    border-bottom: 2px solid var(--text-100);
+}
+
+.section-2>div>h2 {
+    color: var(--text-color2);
+    font-family: var(--dm-sans);
+    font-size: 1.3rem;
+    font-weight: 600;
+    margin: 20px 0;
+}
+
+.section-2>div>p {
+    color: var(--text-color2);
+    font-family: var(--dm-sans);
+    font-weight: 600;
+}
+
+.btn-change-password {
+    display: block;
+    max-width: 400px;
+    margin-top: 30px;
+    padding: 15px 30px;
+    font-size: 1rem;
+    font-family: var(--dm-sans);
+    border: none;
+    background-color: var(--text-color1);
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+
+.section-3 {
+    padding: 30px 0 100px;
+    border-top: 1px solid var(--bg-300);
+}
+
+.btn-delete-account {
+    display: block;
+    width: 217px;
+    margin-top: 30px;
+    padding: 15px 30px;
+    font-size: 1rem;
+    font-family: var(--dm-sans);
+    border: none;
+    background-color: #f82035;
+    color: white;
+    border-radius: 8px;
+    cursor: pointer;
+    text-decoration: none;
+    text-align: center;
+}
+
+/* INPUTS */
+input {
+    width: 80%;
+    display: block;
+    margin-top: 20px;
+    padding: 7px 15px;
+    border: 1px solid var(--bg-300);
+    border-radius: 8px;
+    line-height: 1.9rem;
+    font-size: 1.1rem;
+    background-color: white;
+}
+
+input:focus {
+    outline: none;
+    border: 1px solid #00CA7D;
+}
+
+input::placeholder {
+    font-family: var(--dm-sans);
+}
