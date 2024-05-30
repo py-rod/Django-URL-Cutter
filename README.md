@@ -41,7 +41,8 @@ RECAPTCHA_PUBLIC_KEY=your_recaptcha_public_key
 RECAPTCHA_PRIVATE_KEY=your_recaptcha_private_key
 EMAIL_FROM=your_email
 EMAIL_HOST_USER=your_email
-EMAIL_HOST_PASSWORD=your_password ```
+EMAIL_HOST_PASSWORD=your_password
+```
 
 ## Features
 - **User Authentication:** Implemented using django-allauth.
@@ -50,5 +51,32 @@ EMAIL_HOST_PASSWORD=your_password ```
 - **Captcha Verification:** Provided by django-recaptcha to prevent spam and abuse.
 - **Email Account Recovery:** Allows users to recover their account via email.
 - **Security:** Enhanced with argon2-cffi for password hashing and cryptography for secure communications.
+
+## Running the Application
+Once the environment is set up, run the following commands to apply migrations and start the development server:
+
+1. Apply database migrations:
+
+```bash
+python manage.py makemigrations
+```
+```bash
+python manage.py migrate
+```
+
+2. Run the development server:
+
+```bash
+python manage.py runserver
+```
+
+3. Access the application at:
+
+```txt
+ http://127.0.0.1:8000.
+```
+
+
+
 
 
